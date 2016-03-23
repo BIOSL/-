@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/main-icon.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav main-bar">
+			<a style="font-size: 25px;display: none;" id="history_btn" class="mui-icon mui-icon-compose mui-pull-right main-btn"></a>
+			<h1 id="title" class="mui-title main-font">话题</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
+				<span class="mui-icon main-icon icon-pinglunduihua"></span>
+				<span class="mui-tab-label">话题</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<span class="mui-icon main-icon icon-weibiaoti1"></span>
+				<span class="mui-tab-label">外教</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-contact2.html">
+				<span class="mui-icon main-icon icon-zhinenghuaxuanpinicon1"></span>
+				<span class="mui-tab-label">单词本</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="mui-icon main-icon icon-tixing"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/myajax.js"></script>
+		<script src="../../js/main-page.js"></script>
+		<script src="../../js/plugin.js"></script>
+		<script src="../../js/md5.js"></script>
+		<script src="../../js/main-page.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var debug=false;
+			var version="2.0";
+			//mui初始化
+			mui.init();
+			var subpages = ['tab-webview-subpage-about.html', 'tab-webview-subpage-chat.html', 'tab-webview-subpage-contact2.html', 'tab-webview-subpage-setting.html'];
+			var subpage_style = {
+				top: '44px',
+				bottom: '51px'
+			};
+			var aniShow = {};
+			//创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < 4; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					if (i > 0) {
+						sub.hide();
+						if (i == subpages.length - 1) {
+							sub.addEventListener("loaded", function() {
+								//服务器登录
+								checkLogin();
+							}, false);
+						}
+					} else {
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow, temp);
+					}
+					self.append(sub);
+				}
+			});
+			//当前激活选项
+			var activeTab = subpages[0];
+			var title = document.getElementById("title");
+			//选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if (targetTab == activeTab) {
+					return;
+				}
+				if (targetTab == "tab-webview-subpage-chat.html") {
+					plus.webview.getWebviewById("tab-webview-subpage-chat.html").evalJS("load()");
+					log("加载外教列表")
+				}
+				//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				
+				if(title.innerHTML=="单词本"){
+					document.getElementById("history_btn").style.display="";
+				}else{
+					document.getElementById("history_btn").style.display="none";
+				}
+				
+				//显示目标选项卡
+				if (mui.os.ios || aniShow[targetTab]) {
+					plus.webview.show(targetTab);
+				} else {
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow, temp);
+					plus.webview.show(targetTab, "fade-in", 300);
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			//自定义事件，模拟点击“首页选项卡”
+			document.addEventListener('gohome', function() {
+				var defaultTab = document.getElementById("defaultTab");
+				//模拟首页点击
+				mui.trigger(defaultTab, 'tap');
+				//切换选项卡高亮
+				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+				if (defaultTab !== current) {
+					current.classList.remove('mui-active');
+					defaultTab.classList.add('mui-active');
+				}
+			});
+
+			function closeSplashscreen() {
+				setTimeout(function() {
+					plus.navigator.closeSplashscreen();
+					console.log("关闭等待页！");
+				}, 500);
+			}
+			var userName;
+			var userPw;
+
+			function checkLogin() {
+				userName = plus.storage.getItem("USER_NAME");
+				userPw = plus.storage.getItem("USER_PW");
+				if (userName && userPw) {
+					egh_login();
+				} else {
+					show_login();
+				}
+				chekUpdate();
+			}
+
+			function egh_login_respone(response) {
+				plus.nativeUI.closeWaiting();
+				var req = JSON.parse(response);
+				log("回应信息：" + JSON.parse(response));
+				if (req.msg == '' || req.msg == null) {
+					log('没有返回结果！');
+					mui.toast('网络连接失败，请检查网络！');
+				} else {
+					log("回应信息：" + req.msg);
+					if (req.msg == "2") {
+						//环信登录
+						hx_login();
+						log("name:" + req.obj.username + ",pw:" + req.obj.password);
+						plus.webview.getWebviewById("tab-webview-subpage-setting.html").evalJS("refresh_user_info('"+userName+"','phone')");
+					} else{
+						show_login();
+						closeSplashscreen();
+						mui.toast('密码或用户名错误！');
+					}
+				}
+			}
+			/**
+			 * 自己服务器登录
+			 */
+			function egh_login() {
+				log("进行登陆：name:" + userName + ",pw:" + userPw);
+				var data = {
+						"user_name": userName,
+						"user_pw": md5(userName + userPw + 'egh') //加盐
+					}
+					//				var url = "http://192.168.1.106:8080/EGH/studentController.do?doLogin"
+				ajax("studentController.do?doLogin", data, egh_login_respone);
+			}
+
+			function hx_login() {
+				if(debug){
+					log("debug模式!");
+					closeSplashscreen();
+					return;
+				}
+				plus.plugintest.PluginTestFunction("login", userName, "", "",
+					//调用成功
+					function(result) {
+						closeSplashscreen();
+					},
+					function(result) {
+						plus.nativeUI.toast("登录失败!");
+						show_login();
+					});
+			}
+
+			function show_login() {
+				var login_page = plus.webview.create("../login/login.html", "login");
+				login_page.addEventListener("loaded", function() {
+					login_page.show();
+					closeSplashscreen();
+				}, false);
+			}
+			
+			document.getElementById("history_btn").addEventListener("tap",function(){
+				plus.webview.getWebviewById("word_history").show("pop-in",300);
+			})
+			
+			function chekUpdate(){
+				
+//				plus.nativeUI.showWaiting("检查更新中");
+				var data = {
+					"version": version,
+				}
+				
+				ajax("appUpdateController.do?checkUpdate", data, chekUpdate_respone);
+			}
+			
+			function chekUpdate_respone(response){
+				var req= JSON.parse(response);
+				if(checkRespose(req,response)){
+					if(req.success){
+						console.log("最新版本");
+//						if(user_name&&user_pw)
+//							egh_login();
+					}else{
+							var btnArray = ['下载', '暂不更新'];
+							mui.confirm('APP有新的版本,是否下载？', '版本更新', btnArray, function(e) {
+							if (e.index == 0) {
+								console.log("downLoad");
+								plus.runtime.openURL(req.msg);
+		//						info.innerText = '你刚确认MUI是个好框架';
+							} else {
+//								if(user_name&&user_pw)
+//									egh_login();
+		//						info.innerText = 'MUI没有得到你的认可，继续加油'
+							}
+						})
+					}
+				}
+				plus.nativeUI.closeWaiting();
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<!--App自定义的css-->
+		<style>
+			.info_a {
+				font-weight: 900;
+			}
+			
+			.info_span {
+				position: absolute;
+				right: 35px;
+				color: #888888;
+			}
+			
+			.img-div {
+				position: absolute;
+				right: 35px;
+				border-radius: 60px;
+				bo
+			}
+			
+			.img-li {
+				height: 80px;
+			}
+			
+			.img {
+				border-radius: 60px!important;
+				height: 60px;
+			}
+			
+			.content-div {
+				margin-top: 45px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav main-bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="main-font mui-title">个人信息</h1>
+		</header>
+		<!--<header class="main-bar mui-bar mui-bar-nav" style="padding-right: 15px;background-color: black;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="myfont mui-title">个人信息</h1>
+		</header>-->
+		<div class="content-div">
+			<ul class="mui-table-view">
+				<li id="img-li" class="mui-table-view-cell">
+					<div id="img-div" class="img-div">
+						<img id="user_img" class="img" src="../../images/common/student_img.jpg" />
+					</div>
+					<a class="info_a mui-navigate-right img-li">
+						头像
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="name" class="info_span"></span>
+					<a class="info_a ">
+						用户名
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="phone" class="info_span"></span>
+					<a class="info_a ">
+						手机号
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="chinese_name" class="info_span">口语学员</span>
+					<a class="info_a mui-navigate-right">
+						中文名
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="email" class="info_span">保密</span>
+					<a class="info_a mui-navigate-right">
+						邮箱
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="birthday" class="info_span"></span>
+					<a class="info_a mui-navigate-right">
+						出生日期
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<span id="school" class="info_span"></span>
+					<a class="info_a mui-navigate-right">
+						学校
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/myajax.js"></script>
+	<script src="../../js/md5.min.js"></script>
+	<script src="../../js/lazeImage.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		function getUserInfo_respone(response) {
+			var req = JSON.parse(response);
+			console.log("回应信息：" + response);
+			if (req.msg == '' || req.msg == null) {
+				console.log('没有返回结果！');
+				mui.toast('网络连接失败，请检查网络！');
+			} else {
+				if (req.success) {
+					var obj = req.obj
+					for (var n in obj) {
+						if (document.getElementById(n))
+							document.getElementById(n).innerHTML = obj[n];
+					}
+				} else {}
+			}
+			setTimeout(function(){
+				plus.webview.currentWebview().show("pop-in");
+				plus.nativeUI.closeWaiting();
+			},50)
+		}
+
+		function getUserInfo() {
+			log("getUserInfo");
+			var controller = "studentController.do?getStudentInfo";
+			var data = {
+				name: plus.storage.getItem("USER_NAME")
+//				name: "student"
+			}
+			ajax(controller, data, getUserInfo_respone);
+		}
+		mui.plusReady(function() {
+//			getUserInfo();
+//			var userName=plus.storage.getItem("USER_NAME");
+//			var imgstr=plus.storage.getItem("user_img");
+//			if(imgstr)
+//				document.getElementById("user_img").src = imgstr;
+//			else{
+//				document.getElementById("img-div").innerHTML='<img id="user_img" class="img" src="../../images/student_img.jpg" data-src="http://112.74.132.108:8080/EGH/imageController.do?getImg&fileName='+userName+'" onload="lazyload(this)" />';
+//			}
+		})
+		mui(".mui-table-view").on("tap", "li", function() {
+			var id = this.getAttribute("id");
+			if ("img-li" == id) {
+				//				mui.openWindow({
+				//					id: 'cropper-index.html',
+				//					url: '../cropper/cropper-index.html',
+				//					show: {
+				//						aniShow: 'pop-in'
+				//					},
+				//					waiting: {
+				//						autoShow: false
+				//					}
+				//				});
+				var btnArray = [{
+					title: "拍照"
+				}, {
+					title: "从相册选择"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "操作",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					console.log(JSON.stringify(e));
+					var text = "你刚点击了\"";
+					switch (index) {
+						case 1:
+							//text += "取消";
+							imgForCamera();
+							break;
+						case 2:
+							//text += "拍照或录像";
+							imgForGallery();
+							break;
+					}
+					//info.innerHTML = text+"\"按钮";
+				});
+			}
+		})
+
+		function upLoadImage(imgStr) {
+			plus.nativeUI.showWaiting("上传中");
+			var data = {
+				"studentName": plus.storage.getItem("USER_NAME"),
+				//    			"studentId":"408cbd1d08d1460d8092036da99b3c6f",
+				"imgStr": imgStr
+			}
+			ajax("imageController.do?uploadImg", data, upload_respone);
+		}
+		var upload_respone = function(response) {
+			var req = JSON.parse(response);
+			if (checkRespose(req, response)) {
+				if (req.success) {
+					mui.toast('上传成功！');
+					document.getElementById("user_img").src = plus.storage.getItem("user_img");
+					plus.webview.getWebviewById("tab-userCenter2.html").evalJS("restImg()");
+				} else
+					mui.toast('上传失败！');
+			}
+			plus.nativeUI.closeWaiting();
+		}
+
+		function imgForCamera() {
+			var cmr = plus.camera.getCamera();
+			cmr.captureImage(function(p) {
+				plus.io.resolveLocalFileSystemURL(p, function(entry) {
+					mui.openWindow({
+						url: '../cropper/cropper.html',
+						id: 'cropper.html',
+						extras: {
+							path: "file:///" + entry.fullPath,
+							change: "cem"
+						}
+					});
+				}, function(e) {
+					mui.toast(e.message);
+				});
+			}, function(e) {}, {
+				filename: "_doc/camera/"
+			});
+		}
+
+		function imgForGallery() {
+			plus.gallery.pick(function(url) {
+				mui.openWindow({
+					url: '../cropper/cropper.html',
+					id: 'cropper.html',
+					extras: {
+						path: url,
+						change: "open"
+					}
+				});
+			}, function(error) {
+				mui.toast("打开相册失败");
+			});
+		}
+		
+		function initInfo(){
+			log("initInfo");
+			getUserInfo();
+			var userName=plus.storage.getItem("USER_NAME");
+			var imgstr=plus.storage.getItem("user_img");
+			if(imgstr)
+				document.getElementById("user_img").src = imgstr;
+			else{
+				document.getElementById("img-div").innerHTML='<img id="user_img" class="img" src="../../images/common/student_img.jpg" data-src="http://112.74.132.108:8080/EGH/imageController.do?getImg&fileName='+userName+'" onload="lazyload(this)" />';
+			}
+		}
+		mui.back = function() {
+			log("back");
+			plus.webview.currentWebview().hide("pop-out");
+		};
+	</script>
+
+</html>

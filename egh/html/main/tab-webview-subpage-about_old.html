@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/list-icon.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.point {
+				height: 10px;
+				width: 8px;
+				background-color: orange;
+				display: inline-block;
+				margin: 0 10px 0 10px;
+			}
+			
+			.point-font {
+				display: inline-block;
+				font-size: 15px;
+			}
+			
+			.red {
+				background-color: red;
+			}
+			
+			.mui-loading {
+				height: 50px;
+			}
+			
+			.tasteUl {
+				margin-top: 0px!important;
+				padding-top: 0px!important;
+			}
+			
+			.mui-collapse-content {
+				margin: 0px;
+				padding: 0px;
+			}
+			.list-icon{
+				font-size: 25px;
+				margin-right: 8px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron" style="margin: 0px;">
+				<li id="switch" class="mui-table-view-cell mui-ellipsis">
+					<span class="mui-icon mui-icon-star-filled" style="color: orange;"></span>话题推荐
+				</li>
+			</ul>
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#" tasteid="18" tasteName="英雄联盟">
+							<img src="../../images/taste/tast003.jpg">
+							<p class="mui-slider-title">League of Legends 英雄联盟</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#" tasteid="11" tasteName="肖申克的救赎">
+							<img src="../../images/taste/tast001.jpg">
+							<p class="mui-slider-title mui-ellipsis">The Shawshank Redemption 肖申克的救赎</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#" tasteid="4" tasteName="食在广州">
+							<img src="../../images/taste/tast002.jpg">
+							<p class="mui-slider-title">Food in Guangzhou 食在广州</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#" tasteid="16" tasteName="西方地理">
+							<img src="../../images/cbd.jpg">
+							<p class="mui-slider-title">Western geography 西方地理</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#" tasteid="18" tasteName="英雄联盟">
+							<img src="../../images/taste/tast003.jpg">
+							<p class="mui-slider-title">League of Legends 英雄联盟</p>
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#" tasteid="11" tasteName="肖申克的救赎">
+							<img src="../../images/taste/tast001.jpg">
+							<p class="mui-slider-title">The Shawshank Redemption 肖申克的救赎</p>
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator mui-text-right">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<h5 style="background-color:#efeff4;color: black!important;"><div class="point"></div><div class="point-font">热门话题</div></h5>
+			<div class="mui-slider" id="slider2">
+
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="5" tasteName="苏州园林"><img class="mui-media-object" src="../../images/taste/tast005.jpg">
+									<div class="mui-media-body">苏州园林</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="6" tasteName="德国慕尼黑"><img class="mui-media-object" src="../../images/taste/tast006.jpg">
+									<div class="mui-media-body">德国慕尼黑</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11" tasteName="肖申克的救赎"><img class="mui-media-object" src="../../images/taste/tast008.jpg">
+									<div class="mui-media-body">肖申克的救赎</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="14" tasteName="美国狙击手"><img class="mui-media-object" src="../../images/taste/taste007.jpg">
+									<div class="mui-media-body">美国狙击手</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!--<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/cbd.jpg">
+									<div class="mui-media-body">Color of SIP CBD</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/yuantiao.jpg">
+									<div class="mui-media-body">静静看这世界</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/shuijiao.jpg">
+									<div class="mui-media-body">幸福就是可以一起睡觉</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/muwu.jpg">
+									<div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+								</a>
+							</li>
+						</ul>
+					</div>-->
+
+				</div>
+			</div>
+			<h5 style="background-color:#efeff4;color: black!important;"><div class="point red"></div><span class="point-font">话题列表</span></h5>
+			<ul class="mui-table-view tasteList">
+				<li tasteId="lvyou" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-lvyou" style="color: #f73232;"></span>旅游 Tourism</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="dianyin" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-dianying" style="color: #3376f3;"></span>电影 Film</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="yinyue" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-yinlesongchi" style="color: #68c444;"></span>音乐 Music</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="dili" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-fangbianjingxiaoshang" style="color: #3376f3;"></span>地理 Geography</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="youxi" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-youxi" style="color: #ffb424;"></span>游戏 Game</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="tianqi" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-tianqi" style="color: #864cce;"></span>天气 Weather</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="wenxue" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-shuben" style="color: #1daf8e;"></span>文学 Literature</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="gouwu" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-gouwu" style="color: #a98d40;"></span>购物 Shopping</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li tasteId="huanbao" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#"><span class="mui-icon list-icon icon-huanbao" style="color: #68c444;"></span>环保 Environmental protection</a>
+					<div class="mui-collapse-content">
+						<div class="mui-loading">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/myajax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/plugin.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="../../js/main-page.js"></script>-->
+	<script>
+		//	图片轮播时间
+		var time = 5000;
+		var tasteName = "";
+		var chatID
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui.plusReady(function() {
+			//图片轮播
+			var slider = mui("#slider");
+			slider.slider({
+				interval: time
+			});
+		})
+
+		function getTeacherList(tasteid) {
+			plus.nativeUI.showWaiting("正在匹配老师...");
+			chatID = tasteid;
+			console.log("教师列表:" + tasteid);
+			var data = {
+				"tasteId": tasteid
+			}
+			ajax("teacherController.do?getTeacherByTasteId", data, getTeacherList_respone)
+		}
+		var getTeacherList_respone = function(response) {
+			plus.nativeUI.closeWaiting();
+			log(response);
+			var req = JSON.parse(response);
+			log("回应信息：" + JSON.parse(response));
+			if (req.msg == '' || req.msg == null) {
+				log('没有返回结果！');
+				mui.toast('网络连接失败，请检查网络！');
+			} else {
+				log("回应信息：" + req.msg);
+				if (req.success) {
+					log(req.obj.chatName);
+					plus.nativeUI.showWaiting("即将与" + req.obj.chatName + "老师进行交流\n交谈话题为" + tasteName);
+					setTimeout(function() {
+						gochat(req.obj.chatName);
+						plus.nativeUI.closeWaiting();
+					}, 1000);
+				} else
+					mui.toast(req.msg);
+			}
+			//plus.nativeUI.closeWaiting();
+		}
+
+		function gochat(userid) {
+			plus.plugintest.PluginTestFunction("chat", userid, "", "",
+				//调用成功
+				function(result) {
+					//mui.toast("对话已经开始！");
+					//调用失败
+				},
+				function(result) {
+					log(result[0]);
+					plus.nativeUI.toast(result[0]);
+				});
+			
+			addChatHistory(userid);
+		}
+		mui(".mui-slider").on("click", "a", function() {
+			var tasteid = this.getAttribute("tasteid");
+			tasteName = this.getAttribute("tasteName");
+			getTeacherList(tasteid);
+		})
+		mui(".tasteList").on("tap", "li", function() {
+			var tasteId = this.getAttribute("tasteId");
+			log(tasteId);
+			if (this.querySelector('.mui-loading')) {
+				this.querySelector('.mui-collapse-content').innerHTML = "<ul id='" + tasteId + "' class='mui-table-view tasteUl " + tasteId + "'></ul>"
+				getTasteList(tasteId);
+			}
+		})
+
+		function getTasteList(tasteid) {
+			console.log("获取列表:" + tasteid);
+			var data = {
+				name: tasteid
+			}
+			ajax("tasteController.do?getTasteListByName", data, function(response) {
+				var req = JSON.parse(response);
+				console.log(response);
+				if (checkRespose(req, response)) {
+					if (req.success) {
+						var tasteList = document.getElementById(tasteid);
+						var html = "";
+						//tasteList.innerHTML = "";
+						for (var i = 0; i < req.obj.length; i++) {
+							console.log(req.obj[i].tasteName)
+							html += '<li class="mui-table-view-cell" english="' + req.obj[i].tasteName + '" id="' + req.obj[i].id + '">' + req.obj[i].tasteName + ' ' + req.obj[i].englishName + '<li>';
+						}
+						tasteList.innerHTML = html;
+						mui("." + tasteid).on("tap", "li", function() {
+							var id = this.getAttribute("id");
+							tasteName = this.getAttribute("english");
+							getTeacherList(id);
+						})
+						log(html);
+					} else
+						mui.toast('获取列表失败！');
+				}
+			});
+		}
+		var getTasteList_respone = function(response) {
+			var req = JSON.parse(response);
+			if (checkRespose(req, response)) {
+				if (req.success) {
+					var tasteList = document.getElementById();
+					var html = "";
+					var count = 0;
+					//tasteList.innerHTML = "";
+					for (var i = 0; i < req.obj.length; i++) {
+						console.log(req.obj[i].tasteName)
+						html += '<div class="task-item" english="' + req.obj[i].tasteName + '" id="' + req.obj[i].id + '">';
+					}
+				} else
+					mui.toast('获取列表失败！');
+			}
+		}
+		/**
+		 * 判断并打开评价页
+		 */
+		function showTips() {
+			if ((chatHistoryDate.teacherAssess == null || chatHistoryDate.teacherAssess == "") && (chatHistoryDate.teacherScore == null || chatHistoryDate.teacherScore == "")) {
+				plus.nativeUI.showWaiting("正在进入评价页面");
+				var access = plus.webview.create("../access/star.html", "access", {}, {
+					"chatid": chatHistoryDate.id,
+					"teacherName": chatHistoryDate.teacherName
+				});
+				access.addEventListener("loaded", function() {
+					setTimeout(function(){
+						plus.nativeUI.closeWaiting();
+						//服务器登录
+						access.show("pop-in");
+					},1000)
+				}, false);
+			} else {}
+			//			mui.alert("打开评价页面!");
+		}
+		var chatHistoryDate;
+		/**
+		 * 添加聊天记录
+		 * @param {Object} teacherId
+		 */
+		function addChatHistory(teacherId) {
+			var studentName = plus.storage.getItem("USER_NAME");
+			var teacherName = teacherId;
+			var data = {
+				studentName: studentName,
+				teacherName: teacherName,
+				tasteName: tasteName,
+				tasteId: chatID,
+			}
+			ajax("chatHistoryController.do?doAdd", data, addChatHistory_respone);
+		}
+		var addChatHistory_respone = function(response) {
+			plus.nativeUI.closeWaiting();
+			console.log(response);
+			var req = JSON.parse(response);
+			console.log("回应信息：" + JSON.parse(response));
+			if (req.msg == '' || req.msg == null) {
+				console.log('没有返回结果！');
+				mui.toast('网络连接失败，请检查网络！');
+			} else {
+				console.log("回应信息：" + req.msg);
+				if (req.success) {
+					mui.toast(req.msg);
+					chatHistoryDate = req.obj;
+					//console.log(JSON.parse(chatHistory));
+					//mui.toast(chatHistoryDate.chatName);
+//					mui.alert(chatHistoryDate.chatName);
+					plus.plugintest.PluginTestFunction("sendMsg", chatHistoryDate.teacherName, tasteName, "",
+						//调用成功
+						function(result) {
+							//mui.toast("对话已经开始！");
+							//调用失败
+						},
+						function(result) {
+							console.log(result[0]);
+							plus.nativeUI.toast(result[0]);
+						});
+				} else
+					chatHistoryDate = req.obj;
+				mui.toast(req.msg);
+			}
+		}
+	</script>
+
+</html>

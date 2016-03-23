@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/user.css"/>
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.user_background{
+				width: 100%;
+			}
+			.user_img{
+				position: absolute;
+				border-radius: 100%;
+				top: 38px;
+				left: 20px;
+				width: 60px;
+			}
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			.oa-contact-content {
+				width: 100%;
+			}
+			.user_name{
+				color: white;
+				position: absolute;
+				top: 45px;
+				left: 90px;
+			}
+			.user_lv{
+				color: white;
+				position: absolute;
+				top: 70px;
+				left: 90px;
+				font-size: 13px;
+			}
+			.user_lv_div{
+				width: 50%;
+				height: 8px;
+				/*border: solid;*/
+				position: absolute;
+				left: 130px;
+				top: 75px;
+				background-color: whitesmoke;
+				alpha(opacity=70); opacity: 0.7;
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+				text-align: center;
+				font-size: 9px;
+				line-height: 10px;
+			}
+			.xuefen{
+				color: white;
+				position: absolute;
+				top: 120px;
+				left: 70px;
+				font-size: 20px;
+				
+			}
+			.xuefen_font{
+				color: white;
+				position: absolute;
+				top: 145px;
+				left: 63px;
+				font-size: 20px;
+			}
+			
+			.money{
+				color: white;
+				position: absolute;
+				top: 120px;
+				right: 70px;
+				font-size: 20px;
+				
+			}
+			.money_font{
+				color: white;
+				position: absolute;
+				top: 145px;
+				right: 55px;
+				font-size: 20px;
+			}
+			.line{
+				height: 40px;
+				width: 1px;
+				position: absolute;
+				/*border: solid;*/
+				left: 50%;
+				top: 125px;
+				background-color: #EFEFF4;
+			}
+			.man{
+				position: absolute;
+				width: 18px;
+				top:46px;
+				left: 170px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>-->
+		<div class="mui-content">
+			<div>
+				<div id="user_img_div">
+					<img class="user_img" id="head-img" src="../../images/common/student_img.jpg"/>
+				</div>
+					<span id="user_name" class="user_name">口语学员</span>
+					<span class="user_lv">LV.0</span>
+					<div class="user_lv_div">0%</div>
+					<span class="xuefen">0.0</span>
+					<span class="xuefen_font">得分</span>
+					<span class="money">0.0</span>
+					<span class="money_font">口语币</span>
+					<div class="line"></div>
+					<img class="man" src="../../images/common/man.png" />
+					<!--<img class="man mui-media-object mui-pull-left head-img" id="head-img" src="../../images/common/student_img.jpg">-->
+				
+				<img class="user_background" id="user_background" src="../../images/common/user_background.jpg"/>
+				
+			</div>
+			<ul class="mui-table-view">
+				<li action="myscore" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-shenhe" style="color: orange;"></span>
+						来自教师的评价
+					</a>
+				</li>
+				<li action="myaccess" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-geren" style="color: dodgerblue;"></span>
+						我对教师的评价
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li action="shop" class="mui-table-view-cell" onclick="goshop()">
+					<a class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-shangcheng" style="color:darkorange;" ></span>
+						积分商城
+					</a>
+				</li>
+				<li action="myhistory" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-kecheng" style="color: green;"></span>
+						聊天历史
+					</a>
+				</li>
+				<li action="mycollection" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-shoucangyishoucang-copy" style="color: orangered"></span>
+						我的收藏
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li action="user" class="mui-table-view-cell">
+					<a id="about" class="mui-navigate-right">
+						<span class="mui-icon user_icon icon-geren1" style="color: cadetblue;"></span>
+						个人信息
+					</a>
+				</li>
+				<li action="logout" class="mui-table-view-cell">
+					<a id="pw" class="mui-navigate-right">
+					<span class="mui-icon user_icon icon-shezhi" style="color: darkgray"></span>
+						密码设置
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li action="logout" class="mui-table-view-cell">
+					<a style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+		</div>
+		</style>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/md5.js"></script>
+	<script src="../../js/lazeImage.js"></script>
+	<script>
+		var userPage;
+		var myaccess;
+		var myscore;
+		var myhistory;
+		var mycollection;
+		var shop;
+		var pw;
+		
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		//		document.getElementById("about").addEventListener('tap',function () {
+		//			//获得主页面的webview
+		//			var main = plus.webview.currentWebview().parent();
+		//			//触发主页面的gohome事件
+		//			mui.fire(main,'gohome');
+		//		});
+		mui(".mui-table-view").on("click", "li", function() {
+			var action = this.getAttribute("action");
+			if (action == "logout") {
+				logout();
+			}else if(action == "user"){
+				goUserInfo();
+			}else if(action == 'myaccess'){
+				goAccess();
+			}else if(action == 'myscore'){
+				goScore();
+			}else if(action == 'myhistory'){
+				goHistory();
+			}else if(action == 'pw'){
+				goPw();
+			}else if(action == 'shop'){
+				goShop();
+			}else if(action == 'mycollection'){
+				goCollection();
+			}
+		})
+		
+		function goHistory(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myhistory){
+				plus.nativeUI.showWaiting("请稍等");
+				console.log("!");
+				myhistory.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myhistory = plus.webview.create("../userCenter/myHistory.html","myHistory")
+				myhistory.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myhistory.show("pop-in");
+						myhistory.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		
+		function goAccess(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myaccess){
+				plus.nativeUI.showWaiting("请稍等");
+				myaccess.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myaccess = plus.webview.create("../userCenter/myaccess.html","myaccess")
+				myaccess.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myaccess.show("pop-in");
+						myaccess.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		function goCollection(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(mycollection){
+				plus.nativeUI.showWaiting("请稍等");
+				mycollection.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				mycollection = plus.webview.create("../userCenter/myCollection.html","mycollection")
+				mycollection.addEventListener("loaded",function(){
+					setTimeout(function(){
+						mycollection.show("pop-in");
+						mycollection.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		function goScore(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myscore){
+				plus.nativeUI.showWaiting("请稍等");
+				myscore.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myscore = plus.webview.create("../userCenter/myscore.html","myscore")
+				myscore.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myscore.show("pop-in");
+						myscore.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		function goUserInfo(){
+			plus.nativeUI.showWaiting("请稍等");
+			
+			if(userPage){
+				console.log("1");
+				plus.nativeUI.showWaiting("请稍等");
+				userPage.evalJS("initInfo()");
+			}else{
+				console.log("2");
+				userPage = plus.webview.create("../userCenter/setting.html","userInfo")
+				userPage.addEventListener("loaded",function(){
+					setTimeout(function(){
+						userPage.evalJS("initInfo()");
+					},50)
+				})
+			}
+		}
+		function goPw(){
+			plus.nativeUI.showWaiting("请稍等");
+			
+			if(pw){
+				plus.nativeUI.showWaiting("请稍等");
+				pw.show("pop-in");
+			}else{
+				pw = plus.webview.create("../userCenter/change_password.html","pw")
+				pw.addEventListener("loaded",function(){
+					setTimeout(function(){
+						pw.show("pop-in");
+					},50)
+				})
+			}
+			plus.nativeUI.closeWaiting();
+		}
+		
+		function goShop(){
+			plus.nativeUI.showWaiting("请稍等");
+			
+			if(shop){
+				plus.nativeUI.showWaiting("请稍等");
+				shop.show("pop-in");
+			}else{
+				shop = plus.webview.create("../shop/shop.html","shop")
+				shop.addEventListener("loaded",function(){
+					setTimeout(function(){
+						shop.show("pop-in");
+					},50)
+				})
+			}
+			plus.nativeUI.closeWaiting();
+		}
+		
+		function logout() {
+			plus.nativeUI.showWaiting("注销中")
+			plus.storage.removeItem("USER_NAME");
+			plus.storage.removeItem("USER_PW");
+			var login_page = plus.webview.create("../login/login.html", "login");
+			login_page.addEventListener("loaded", function() {
+				login_page.show();
+				plus.nativeUI.closeWaiting();
+			}, false);
+		}
+		
+		function refresh_user_info(name,phone){
+			var html='<img class="user_img" id="head-img" src="../../images/common/student_img.jpg" data-src="http://112.74.132.108:8080/EGH/imageController.do?getImg&fileName='+name+'" onload="lazyload(this)" />';
+			
+			document.getElementById("user_name").innerHTML=name;
+			document.getElementById("user_img_div").innerHTML=html;
+		}
+	</script>
+</html>

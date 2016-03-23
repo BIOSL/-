@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/main_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/dian_icon.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.point {
+				height: 10px;
+				width: 8px;
+				background-color: orange;
+				display: inline-block;
+				margin: 0 10px 0 10px;
+			}
+			
+			.point-font {
+				display: inline-block;
+				font-size: 15px;
+			}
+			
+			.red {
+				background-color: red;
+			}
+			
+			.mui-loading {
+				height: 50px;
+			}
+			
+			.tasteUl {
+				margin-top: 0px!important;
+				padding-top: 0px!important;
+			}
+			
+			.mui-collapse-content {
+				margin: 0px;
+				padding: 0px;
+			}
+			.list-icon{
+				font-size: 25px;
+				margin-right: 8px;
+			}
+			.mui-table-view{
+				margin-top: 0px!important;
+			}
+			.mycell{
+				/*line-height: 30px;*/
+			}
+			.myp{
+				color: black;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav main-bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<!--<a id="icon-menu" class="mui-icon mui-icon mui-icon-star mui-pull-right" style="color: white;"></a>-->
+			<h1 class="main-font mui-title">积分商城</h1>
+		</header>
+		<div class="mui-content">
+			<!--<ul class="mui-table-view mui-table-view-chevron" style="margin: 0px;">
+				<li id="switch" class="mui-table-view-cell mui-ellipsis">
+					<span class="mui-icon mui-icon-star-filled" style="color: orange;"></span>视频推荐
+				</li>
+			</ul>-->
+			<h5 style="background-color:#efeff4;color: black!important;"><span class="mui-icon dian_icon icon-dian" style="font-size: 19px;color: orange;margin-left: 5px;"></span><div class="point-font">热门兑换商品</div></h5>
+			<div class="mui-slider" id="slider2">
+
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s1.png">
+									<div class="mui-media-body">500积分</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s2.png">
+									<div class="mui-media-body">2000积分</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s3.png">
+									<div class="mui-media-body">5000积分</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s4.png">
+									<div class="mui-media-body">10000积分</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s5.png">
+									<div class="mui-media-body">12000积分</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" onclick="javascript:return false;"><img class="mui-media-object" src="../../images/shop/s6.png">
+									<div class="mui-media-body">20000积分</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!--<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/cbd.jpg">
+									<div class="mui-media-body">Color of SIP CBD</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/yuantiao.jpg">
+									<div class="mui-media-body">静静看这世界</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/shuijiao.jpg">
+									<div class="mui-media-body">幸福就是可以一起睡觉</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-6">
+								<a href="#" tasteid="11"><img class="mui-media-object" src="../../images/muwu.jpg">
+									<div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+								</a>
+							</li>
+						</ul>
+					</div>-->
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<!--<script src="../../js/main-page.js"></script>-->
+	<script>
+		mui(".mui-grid-view").on("tap", "li", function() {
+			mui.alert("对不起，你的积分为0，不满足兑换条件");
+		})
+	</script>
+
+</html>

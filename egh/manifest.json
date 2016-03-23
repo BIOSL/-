@@ -1,0 +1,1126 @@
+{
+	"@platforms": ["android", "iPhone", "iPad"],
+	"id": "HelloH5",/*必选，应用的标识*/
+	"name": "mui",/*必选，应用名称*/
+	"version": {
+		"name": "1.1",/*必选，版本名称*/
+		"code": ""
+	},
+	"description": "",/*可选，应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"fullscreen": false,
+	"launch_path": "html/main/tab-webview-main.html",/*必选，应用的入口页面，默认为根目录下的index.html；也可以是网络地址，网络地址必须以http://或https://开头*/
+	"developer": {
+		"email": "",/*可选，开发者名称*/
+		"name": "",/*可选，开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+		"Audio": {
+			"description": "访问麦克风"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Speech": {
+			"description": "管理语音识别插件"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"plugintest": {
+			"description": "测试插件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},"Downloader":{}
+	},
+	"plus": {
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，none为无侧滑返回功能，hide为侧滑隐藏Webview窗口。参考ask.dcloud.net.cn/article/102*/
+		"splashscreen": {
+			"autoclose": false,/*如果为true，程序启动的图片可以自动关闭，如果为false，开发者需要手动关闭*/
+			"waiting": false,
+			"delay": "0"
+		},
+		"runmode": "normal",/*两个值，liberate或normal，前者在应用安装时释放资源，后者不需要释放资源*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"debug": "",/*可选，是否为debug模式，可取值：true表示debug模式运行，false表示release模式运行，默认值为false*/
+			"apple": {
+				"appid": "",/*iOS必选，苹果开发网站申请的appid，如com.dheaven.hbuilder*/
+				"mobileprovision": "",/*iOS必选，打包配置文件*/
+				"password": "",/*iOS必选，导入配置文件密码*/
+				"p12": "",/*iOS必选，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iphone，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android必选，程序包名，如com.dheaven.hbuilder*/
+				"keystore": "",/*Android必选，打包证书文件*/
+				"password": "",/*Android必选，打包证书密码*/
+				"aliasname": "",/*Android必选，打包证书别名*/
+				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>", "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>", "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>", "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>", "<uses-permission android:name=\"android.permission.VIBRATE\"/>", "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>", "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>", "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>", "<uses-feature android:name=\"android.hardware.camera\"/>", "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>", "<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": ["portrait-primary","portrait-secondary"],/*必选*/
+			"icons": {
+				"ios": {
+					"prerendered": "", /*必选，是否高亮显示*/
+					"auto": "", /*可选，512x512，用于自动生成各种尺寸图标的大分辨率程序图标*/
+					"iphone": {
+						"normal": "",/*可选，57x57，iPhone普通屏幕程序图标*/
+						"retina": "",/*可选，114x114，iPhone高分屏程序图标*/
+						"retina7": "",/*可选，120x120，iPhone iOS7高分屏程序图标*/
+						"spotlight-normal": "", /*可选，29x29，iPhone Spotlight搜索程序图标*/
+						"spotlight-retina": "", /*可选，58x58，iPhone高分屏Spotlight搜索程序图标*/
+						"spotlight-retina7": "",/*可选，80x80，iPhone iOS7高分屏Spotlight搜索程序图标*/
+						"settings-normal": "", /*可选，29x29，iPhone设置页面程序图标*/
+						"settings-retina": ""
+					},
+					"ipad": {
+						"normal": "", /*可选，72x72，iPad普通屏幕程序图标*/
+						"retina": "", /*可选，144x144，iPad高分屏程序图标*/
+						"normal7": "", /*可选，76x76，iPad iOS7程序图标*/
+						"retina7": "", /*可选，152x152，iPad iOS7高分屏程序图标*/
+						"spotlight-normal": "", /*可选，50x50，iPad Spotlight搜索程序图标*/
+						"spotlight-retina": "", /*可选，100x100，iPad高分屏Spotlight搜索程序图标*/
+						"spotlight-normal7": "",/*可选，40x40，iPad iOS7 Spotlight搜索程序图标*/
+						"spotlight-retina7": "",/*可选，80x80，iPad iOS7高分屏Spotlight搜索程序图标*/
+						"settings-normal": "",/*可选，29x29，iPad设置页面程序图标*/
+						"settings-retina": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*必选，48x48，普通屏程序图标*/
+					"ldpi": "", /*必选，48x48，大屏程序图标*/
+					"hdpi": "", /*必选，72x72，高分屏程序图标*/
+					"xhdpi": "",/*必选，96x96，720P高分屏程序图标*/
+					"xxhdpi": ""
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*必选，320x480，iPhone3启动图片*/
+						"retina35": "",/*必选，640x960，3.5英寸设备(iPhone4)启动图片*/
+						"retina40": ""
+					},
+					"ipad": {
+						"portrait": "", /*可选，768x1004，需支持iPad时必选，iPad竖屏启动图片*/
+						"portrait-retina": "",/*可选，1536x2008，需支持iPad时必选，iPad高分屏竖屏图片*/
+						"landscape": "", /*可选，1024x748，需支持iPad时必选，iPad横屏启动图片*/
+						"landscape-retina": "", /*可选 ，2048x1496，需支持iPad时必选，iPad高分屏横屏启动图片*/
+						"portrait7": "", /*可选，768x1024，需支持iPad iOS7时必选，iPad竖屏启动图片*/
+						"portrait-retina7": "",/*可选，1536x2048，需支持iPad iOS7时必选，iPad高分屏竖屏图片*/
+						"landscape7": "", /*可选，1024x768，需支持iPad iOS7时必选，iPad横屏启动图片*/
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*必选，240x282，普通屏启动图片*/
+					"ldpi": "", /*必选，320x442，大屏启动图片*/
+					"hdpi": "", /*必选，480x762，高分屏启动图片*/
+					"xhdpi": "", /*必选，720x1242，720P高分屏启动图片*/
+					"xxhdpi": ""
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"html/main/tab-webview-subpage-chat.html": {
+				"resources": [
+					"js/lazeImage.js",
+					"js/md5.min.js",
+					"js/mylist.js",
+					"css/teacherList.css",
+					"images/common/student_img.jpg",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/myajax.js"
+				],
+				"refer": [
+					"html/teacherInfo/teacheInfo.html"
+				],
+				"priority": 0
+			},
+			"html/login/login.html": {
+				"resources": [
+					"images/logo/logo.png",
+					"js/mui.min.js",
+					"js/plugin.js",
+					"css/mui.min.css",
+					"js/myajax.js",
+					"js/md5.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"html/login/reg.html"
+				],
+				"priority": 0
+			},
+			"html/main/tab-webview-subpage-setting.html": {
+				"resources": [
+					"images/common/student_img.jpg",
+					"js/lazeImage.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/md5.js",
+					"fonts/user.ttf",
+					"images/common/user_background.jpg",
+					"css/user.css",
+					"images/common/man.png"
+				],
+				"refer": [
+					"html/userCenter/setting.html",
+					"html/userCenter/myaccess.html",
+					"html/userCenter/myscore.html",
+					"html/userCenter/myHistory.html",
+					"html/login/login.html",
+					"html/shop/shop.html",
+					"html/userCenter/myCollection.html"
+				],
+				"priority": 0
+			},
+			"html/main/tab-webview-main.html": {
+				"resources": [
+					"js/main-page.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/plugin.js",
+					"css/mui.min.css",
+					"html/main/tab-webview-subpage-about.html",
+					"js/myajax.js",
+					"js/md5.js",
+					"fonts/main-icon.ttf",
+					"css/main-icon.css",
+					"html/main/tab-webview-subpage-chat.html"
+				],
+				"refer": [
+					"html/login/login.html",
+					"html/main/tab-webview-subpage-contact.html",
+					"html/main/tab-webview-subpage-setting.html",
+					"html/main/tab-webview-subpage-contact2.html"
+				],
+				"priority": 0
+			},
+			"html/main/tab-webview-subpage-about.html": {
+				"resources": [
+					"images/taste/tast008.jpg",
+					"images/taste/tast001.jpg",
+					"images/taste/tast006.jpg",
+					"images/taste/tast005.jpg",
+					"images/cbd.jpg",
+					"images/taste/tast002.jpg",
+					"images/taste/taste007.jpg",
+					"images/muwu.jpg",
+					"images/yuantiao.jpg",
+					"images/taste/tast003.jpg",
+					"images/shuijiao.jpg",
+					"fonts/mui.ttf",
+					"js/plugin.js",
+					"js/myajax.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/list-icon.css",
+					"fonts/list-icon.ttf",
+					"images/taste/new_tast005.jpg",
+					"images/taste/new_taste001.jpg",
+					"images/taste/new_tast003.jpg",
+					"images/taste/new_tast002.jpg",
+					"images/taste/new_tast001.jpg",
+					"images/taste/new_tast004.jpg",
+					"images/taste/new_tast007.jpg",
+					"images/taste/new_tast006.jpg",
+					"images/taste/new_tast008.jpg",
+					"images/common/point1.png"
+				],
+				"refer": [
+					"html/access/star.html"
+				],
+				"priority": 0
+			},
+			"html/access/star.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/myajax.js",
+					"images/60x60.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/teacherInfo/teacheInfo.html": {
+				"resources": [
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/plugin.js",
+					"images/common/teacher_background.jpg",
+					"images/common/student_img.jpg",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/myajax.js",
+					"js/lazeImage.js",
+					"js/md5.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/userCenter/setting.html": {
+				"resources": [
+					"js/md5.min.js",
+					"css/common.css",
+					"js/lazeImage.js",
+					"images/common/student_img.jpg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/myajax.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/main/tab-webview-subpage-contact.html": {
+				"resources": [
+					"images/60x60.gif",
+					"images/common/word_search_logo.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/myajax.js"
+				],
+				"refer": [
+					"html/wordBook/wordbook.html"
+				],
+				"priority": 0
+			},
+			"html/userCenter/myaccess.html": {
+				"resources": [
+					"js/md5.min.js",
+					"js/mylist.js",
+					"images/60x60.gif",
+					"css/myaccess.css",
+					"js/myajax.js",
+					"js/lazeImage.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/common/student_img.jpg",
+					"css/common.css"
+				],
+				"refer": [
+					"html/teacherInfo/teacheInfo.html",
+					"html/userCenter/chatHistoryInfo.html"
+				],
+				"priority": 0
+			},
+			"html/userCenter/myscore.html": {
+				"resources": [
+					"css/myaccess.css",
+					"js/md5.min.js",
+					"js/mylist.js",
+					"css/common.css",
+					"js/myajax.js",
+					"js/lazeImage.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/common/student_img.jpg",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"html/userCenter/chatHistoryInfo.html"
+				],
+				"priority": 0
+			},
+			"html/userCenter/chatHistoryInfo.html": {
+				"resources": [
+					"js/plugin.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/myajax.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/userCenter/myHistory.html": {
+				"resources": [
+					"css/myaccess.css",
+					"images/common/student_img.jpg",
+					"js/lazeImage.js",
+					"js/md5.min.js",
+					"js/mylist.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"css/mui.min.css",
+					"js/myajax.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"html/userCenter/chatHistoryInfo.html"
+				],
+				"priority": 0
+			},
+			"html/userCenter/change_password.html": {
+				"resources": [
+					"css/common.css",
+					"js/myajax.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/md5.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/login/reg.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"js/mui.listpicker.js",
+					"css/mui.listpicker.css",
+					"css/mui.poppicker.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/plugin.js",
+					"css/mui.min.css",
+					"js/md5.js",
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/wordBook/wordbook.html": {
+				"resources": [
+					"css/common.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/main/tab-webview-subpage-contact2.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"images/common/word_search_logo.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/myajax.js"
+				],
+				"refer": [
+					"html/wordBook/word_history.html"
+				],
+				"priority": 0
+			},
+			"examples/popovers.html": {
+				"href": "examples/popovers.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 0
+			},
+			"examples/icons.html": {
+				"href": "examples/icons.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 1
+			},
+			"examples/numbox.html": {
+				"href": "examples/numbox.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 2
+			},
+			"examples/im-chat.html": {
+				"href": "examples/im-chat.html",
+				"resources": [
+					"css/app.css",
+					"css/mui.imageviewer.css",
+					"js/mui.imageViewer.js",
+					"js/arttmpl.js",
+					"images/logo.png"
+				],
+				"priority": 3
+			},
+			"examples/slider-table-default.html": {
+				"href": "examples/slider-table-default.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 4
+			},
+			"examples/actionsheet-plus.html": {
+				"href": "examples/actionsheet-plus.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 5
+			},
+			"examples/tab-with-segmented-control-vertical.html": {
+				"href": "examples/tab-with-segmented-control-vertical.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 6
+			},
+			"examples/setting.html": {
+				"href": "examples/setting.html",
+				"resources": [
+					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"images/logo.png",
+					"libs/easymob-webim-sdk/json2.js",
+					"js/feedback-page.js",
+					"css/feedback-page.css",
+					"images/iconfont-tianjia.png",
+					"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"js/mui.view.js",
+					"js/feedback.js"
+				],
+				"refer": [
+					"examples/guide.html"
+				],
+				"priority": 7
+			},
+			"examples/accordion.html": {
+				"href": "examples/accordion.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 8
+			},
+			"examples/buttons-with-block.html": {
+				"href": "examples/buttons-with-block.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 9
+			},
+			"examples/list-triplex-row.html": {
+				"href": "examples/list-triplex-row.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 10
+			},
+			"examples/tabbar.html": {
+				"href": "examples/tabbar.html",
+				"resources": [
+					"css/app.css",
+					"images/60x60.gif"
+				],
+				"priority": 11
+			},
+			"examples/login.html": {
+				"href": "examples/login.html",
+				"resources": [
+					"css/app.css",
+					"images/login-1.png"
+				],
+				"priority": 12
+			},
+			"examples/pullrefresh_with_tab.html": {
+				"href": "examples/pullrefresh_with_tab.html",
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js"
+				],
+				"priority": 13
+			},
+			"examples/media-list.html": {
+				"href": "examples/media-list.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 14
+			},
+			"examples/grid-default.html": {
+				"href": "examples/grid-default.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 15
+			},
+			"examples/grid-pagination.html": {
+				"href": "examples/grid-pagination.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 16
+			},
+			"examples/pagination.html": {
+				"href": "examples/pagination.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 17
+			},
+			"examples/radio.html": {
+				"href": "examples/radio.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 18
+			},
+			"examples/tab-with-viewpagerindicator.html": {
+				"href": "examples/tab-with-viewpagerindicator.html",
+				"priority": 2
+			},
+			"examples/picker.html": {
+				"href": "examples/picker.html",
+				"resources": [
+					"js/city.data.js",
+					"js/mui.picker.js",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"js/mui.poppicker.js",
+					"css/app.css",
+					"js/city.data-3.js",
+					"css/mui.picker.min.css",
+					"js/mui.picker.min.js"
+				],
+				"priority": 20
+			},
+			"examples/tab-webview-subpage-about.html": {
+				"href": "examples/tab-webview-subpage-about.html",
+				"resources": [],
+				"priority": 21
+			},
+			"examples/tab-webview-subpage-setting.html": {
+				"href": "examples/tab-webview-subpage-setting.html",
+				"resources": [],
+				"priority": 22
+			},
+			"examples/tab-webview-subpage-chat.html": {
+				"href": "examples/tab-webview-subpage-chat.html",
+				"resources": [],
+				"priority": 23
+			},
+			"examples/tab-webview-subpage-contact.html": {
+				"href": "examples/tab-webview-subpage-contact.html",
+				"resources": [
+					"images/60x60.gif"
+				],
+				"priority": 24
+			},
+			"examples/tab-webview-main.html": {
+				"href": "examples/tab-webview-main.html",
+				"resources": [],
+				"refer": [
+					"examples/tab-webview-subpage-about.html",
+					"examples/tab-webview-subpage-setting.html",
+					"examples/tab-webview-subpage-chat.html",
+					"examples/tab-webview-subpage-contact.html"
+				],
+				"priority": 21
+			},
+			"examples/list-with-input.html": {
+				"href": "examples/list-with-input.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 22
+			},
+			"examples/clouddb_wilddog.html": {
+				"href": "examples/clouddb_wilddog.html",
+				"resources": [],
+				"priority": 23
+			},
+			"examples/ajax.html": {
+				"href": "examples/ajax.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 24
+			},
+			"examples/checkbox.html": {
+				"href": "examples/checkbox.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 25
+			},
+			"examples/nav.html": {
+				"href": "examples/nav.html",
+				"resources": [],
+				"priority": 26
+			},
+			"examples/tableviews-with-swipe.html": {
+				"href": "examples/tableviews-with-swipe.html",
+				"priority": 4
+			},
+			"examples/buttons-with-icons.html": {
+				"href": "examples/buttons-with-icons.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 28
+			},
+			"examples/imageviewer.html": {
+				"href": "examples/imageviewer.html",
+				"resources": [
+					"images/muwu.jpg",
+					"images/shuijiao.jpg",
+					"js/mui.previewimage.js",
+					"js/mui.zoom.js",
+					"images/yuantiao.jpg"
+				],
+				"priority": 29
+			},
+			"examples/offcanvas-drag-left-plus-menu.html": {
+				"href": "examples/offcanvas-drag-left-plus-menu.html",
+				"resources": [],
+				"priority": 30
+			},
+			"examples/offcanvas-drag-left-plus-main.html": {
+				"href": "examples/offcanvas-drag-left-plus-main.html",
+				"resources": [],
+				"refer": [
+					"examples/offcanvas-drag-left-plus-menu.html"
+				],
+				"priority": 30
+			},
+			"examples/buttons-with-badges.html": {
+				"href": "examples/buttons-with-badges.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 31
+			},
+			"examples/offcanvas-drag-right.html": {
+				"href": "examples/offcanvas-drag-right.html",
+				"resources": [],
+				"priority": 32
+			},
+			"examples/typography.html": {
+				"href": "examples/typography.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 33
+			},
+			"examples/template.html": {
+				"href": "examples/template.html",
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"priority": 34,
+				"refer": []
+			},
+			"examples/echarts.html": {
+				"href": "examples/echarts.html",
+				"resources": [
+					"css/app.css",
+					"libs/echarts-all.js"
+				],
+				"priority": 35
+			},
+			"examples/tableviews-with-collapses.html": {
+				"href": "examples/tableviews-with-collapses.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 36
+			},
+			"examples/indexed-list-select.html": {
+				"href": "examples/indexed-list-select.html",
+				"resources": [
+					"css/mui.indexedlist.css",
+					"js/mui.indexedlist.js"
+				],
+				"priority": 37
+			},
+			"examples/tab-with-segmented-control.html": {
+				"href": "examples/tab-with-segmented-control.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 38
+			},
+			"examples/input.html": {
+				"href": "examples/input.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 39
+			},
+			"examples/lazyload-image.html": {
+				"href": "examples/lazyload-image.html",
+				"resources": [
+					"css/app.css",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/60x60.gif"
+				],
+				"priority": 40
+			},
+			"examples/dtpicker.html": {
+				"href": "examples/dtpicker.html",
+				"resources": [
+					"css/app.css",
+					"css/mui.picker.min.css",
+					"js/mui.picker.min.js",
+					"css/mui.picker.css",
+					"css/mui.dtpicker.css",
+					"js/mui.picker.js",
+					"js/mui.dtpicker.js"
+				],
+				"priority": 41
+			},
+			"examples/slider-table-pagination.html": {
+				"href": "examples/slider-table-pagination.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 42
+			},
+			"examples/buttons.html": {
+				"href": "examples/buttons.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 43
+			},
+			"examples/indexed-list.html": {
+				"href": "examples/indexed-list.html",
+				"resources": [
+					"css/mui.indexedlist.css",
+					"js/mui.indexedlist.js"
+				],
+				"priority": 44
+			},
+			"examples/date.html": {
+				"href": "examples/date.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 45
+			},
+			"examples/offcanvas-drag-down.html": {
+				"href": "examples/offcanvas-drag-down.html",
+				"resources": [],
+				"priority": 47
+			},
+			"examples/tableviews.html": {
+				"href": "examples/tableviews.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 48
+			},
+			"examples/slider-default.html": {
+				"href": "examples/slider-default.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 49
+			},
+			"examples/badges.html": {
+				"href": "examples/badges.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 50
+			},
+			"examples/slider-with-title.html": {
+				"href": "examples/slider-with-title.html",
+				"resources": [
+					"images/shuijiao.jpg",
+					"css/app.css",
+					"images/muwu.jpg",
+					"images/cbd.jpg",
+					"images/yuantiao.jpg"
+				],
+				"priority": 51
+			},
+			"examples/tableviews-with-badges.html": {
+				"href": "examples/tableviews-with-badges.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 52
+			},
+			"examples/range.html": {
+				"href": "examples/range.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 53
+			},
+			"examples/offcanvas-drag-right-plus-menu.html": {
+				"href": "examples/offcanvas-drag-right-plus-menu.html",
+				"resources": [],
+				"priority": 54
+			},
+			"examples/offcanvas-drag-right-plus-main.html": {
+				"href": "examples/offcanvas-drag-right-plus-main.html",
+				"resources": [],
+				"refer": [
+					"examples/offcanvas-drag-right-plus-menu.html"
+				],
+				"priority": 54
+			},
+			"examples/tabbar-with-submenus.html": {
+				"href": "examples/tabbar-with-submenus.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 55
+			},
+			"examples/actionsheet.html": {
+				"href": "examples/actionsheet.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 56
+			},
+			"examples/offcanvas-drag-left.html": {
+				"href": "examples/offcanvas-drag-left.html",
+				"priority": 3
+			},
+			"examples/dialog.html": {
+				"href": "examples/dialog.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 58
+			},
+			"examples/ad.html": {
+				"href": "examples/ad.html",
+				"resources": [
+					"js/ad.js"
+				],
+				"priority": 59
+			},
+			"examples/locker-dom.html": {
+				"href": "examples/locker-dom.html",
+				"resources": [
+					"css/app.css",
+					"js/mui.locker.js"
+				],
+				"priority": 60
+			},
+			"examples/pullrefresh_sub.html": {
+				"href": "examples/pullrefresh_sub.html",
+				"resources": [],
+				"priority": 61
+			},
+			"examples/pullrefresh_main.html": {
+				"href": "examples/pullrefresh_main.html",
+				"priority": 5
+			},
+			"examples/switches.html": {
+				"href": "examples/switches.html",
+				"priority": 6
+			},
+			"examples/tabbar-labels-only.html": {
+				"href": "examples/tabbar-labels-only.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 63
+			},
+			"examples/feedback.html": {
+				"href": "examples/feedback.html",
+				"resources": [
+					"css/feedback-page.css",
+					"images/iconfont-tianjia.png",
+					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"css/app.css",
+					"libs/easymob-webim-sdk/json2.js",
+					"js/feedback-page.js",
+					"libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"js/feedback.js"
+				],
+				"priority": 64
+			},
+			"examples/info.html": {
+				"href": "examples/info.html",
+				"resources": [
+					"css/app.css"
+				],
+				"priority": 1
+			},
+			"index.html": {
+				"href": "index.html",
+				"resources": [
+					"manifest.json",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/update.js",
+					"examples/guide.html",
+					"list.html",
+					"index-menu.html",
+					"css/common.css"
+				],
+				"refer": [
+					"examples/info.html"
+				],
+				"priority": 0
+			},
+			"index-menu.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"list.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"examples/template.html",
+					"examples/tab-webview-main.html",
+					"examples/pullrefresh_main.html"
+				],
+				"priority": 0
+			},
+			"html/shop/shop.html": {
+				"resources": [
+					"images/shop/s4.png",
+					"images/shop/s2.png",
+					"js/mui.min.js",
+					"images/shop/s1.png",
+					"css/common.css",
+					"images/shop/s6.png",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/shop/s5.png",
+					"js/myajax.js",
+					"images/shop/s3.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/wordBook/word_history.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/userCenter/myCollection.html": {
+				"resources": [
+					"js/lazeImage.js",
+					"js/md5.min.js",
+					"js/mylist.js",
+					"js/mui.min.js",
+					"css/teacherList.css",
+					"css/mui.min.css",
+					"js/myajax.js",
+					"images/common/student_img.jpg",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"css/myaccess.css"
+				],
+				"refer": [
+					"html/teacherInfo/teacheInfo.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"html/cropper/css/user-information.css",
+				"examples/listpicker.html",
+				"html/cropper/cropper.html",
+				"html/cropper/cropper-index.html",
+				"images/42x42.gif",
+				"html/cropper/css/mui.min.css",
+				"html/cropper/css/iconfont.css",
+				"html/cropper/imgPage.html",
+				"images/pull_arrow.png",
+				"html/cropper/js/cropper.min.js",
+				"html/cropper/css/mui.css",
+				"html/main/tab-webview-subpage-setting2.html",
+				"html/cropper/js/cropper-img.js",
+				"js/mui.js",
+				"html/cropper/js/jquery-1.11.2.min.js",
+				"html/cropper/css/cropper.css",
+				"html/cropper/js/fastclick.js",
+				"html/cropper/js/mui.min.js",
+				"html/cropper/fonts/iconfont.ttf",
+				"html/main/tab-webview-subpage-about_old.html",
+				"html/cropper/fonts/mui.ttf",
+				"libs/easymob-webim-sdk/quickstart.md",
+				"html/cropper/js/mui.js",
+				"images/pull_fresh.png",
+				"css/mui.css",
+				"html/cropper/js/exif.js",
+				"js/mui.picker.all.js",
+				"html/cropper/js/md5.min.js",
+				"html/cropper/js/myjs.js",
+				"examples/modals.html",
+				"css/mui.picker.all.css",
+				"html/cropper/js/lazeImage.js",
+				"html/cropper/imagePage.html"
+			]
+		}
+	}
+}

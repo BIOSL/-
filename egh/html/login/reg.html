@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link href="../../css/mui.listpicker.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/common.css"  rel="stylesheet"/>
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="main-bar mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+				<h1 class="mui-title main-font">注册</h1>
+			</header>
+			<form class="mui-input-group" style="margin-top: 50px;">
+				<div class="mui-input-row">
+					<label>英文名</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="长度3～10英文名">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="8~16为密码">
+				</div>
+				<div class="mui-input-row">
+					<label>确认密码</label>
+					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+				</div>
+				<div class="mui-input-row">
+					<label>手机号</label>
+					<input id='phone' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号">
+				</div>
+				<div class="mui-input-row">
+					<label>验证码</label>
+					<input id='code' type="tel" class="mui-input-clear mui-input" placeholder="请输入收到的验证码">
+				</div>
+
+			</form>
+			<div class="mui-content-padded">
+				<button id='sendMail' class="mui-btn mui-btn-block mui-btn-warning">发送验证码</button>
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+			</div>
+			<div class="mui-content-padded">
+				<p>注册时请填写真实信息，以帮助我们更加准确的了解你的情况，达到更好的学习效果。</p>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/plugin.js"></script>
+		<script src="../../js/tatse.data.js"></script>
+		<script src="../../js/mui.listpicker.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="../../js/myjs.js"></script>
+		<script src="../../js/md5.js"></script>
+		<script>
+			var msg_code="";
+			var canSend=true;
+			var numbers=30;
+			var p_timer
+			var sendMSG = document.getElementById('sendMail');
+			
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+//					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var passwordConfirmBox = doc.getElementById('password_confirm');
+//					var emailBox = doc.getElementById('email');
+					var phone = doc.getElementById('phone');
+//					var tasteName = doc.getElementById('tasteName');
+//					var tasteId = doc.getElementById('tasteId');
+//					var grade = doc.getElementById('grade');
+//					var school = doc.getElementById('school');
+					var code=doc.getElementById("code");
+					
+					/*
+					 * 数据交互基础方法
+					 */
+					var ajax = function(url, data, action) {
+						plus.nativeUI.showWaiting('请稍等...');
+						console.log('请求:' + url)
+						mui.ajax(url, {
+							"data": data,
+							"type": 'post', //HTTP请求类型
+							"timeout": 100000000,
+							"success": action,
+							error: function(xhr, type, errorThrown) {
+							}
+						});
+					}
+					
+					var hxReg = function() {
+						plus.plugintest.PluginTestFunction("register",accountBox.value, passwordBox.value, "", function(result) {
+							
+						}, function(result) {
+							plus.nativeUI.toast(result)
+						});
+					}
+					
+					var success = function(response) {
+						plus.nativeUI.closeWaiting();
+						console.log("回应信息：" + response);
+						var req = JSON.parse(response);
+						if (req.msg == '' || req.msg == null) {
+							console.log('没有返回结果！');
+							mui.toast('网络连接失败，请检查网络！');
+						} else {
+							if (req.success) {
+								hxReg();
+							} else
+								mui.toast(req.msg);
+						}
+					};
+					var sendMsg_respone = function(response) {
+						plus.nativeUI.closeWaiting();
+						console.log(response);
+						mui.alert("验证码已️发送！","提示")
+					};
+					
+					function doRegister() {
+						var testStr=/[\u4E00-\u9FA5\uF900-\uFA2D]/;
+						if (testStr.test(accountBox.value)){
+							mui.toast("英文名不能有中文字");
+							return;
+						}
+						
+						if(accountBox.value.length<3||accountBox.value.length>10){
+							mui.toast("英文名长度有误！")
+							return;
+						}
+						
+						if(passwordBox.value!=passwordConfirmBox.value){
+							mui.toast("密码前后不一致！");
+							return;
+						}
+						
+						if(passwordBox.value.length<6||passwordBox.value.length>12){
+							mui.toast("密码长度有误");
+							return;
+						}
+						
+//						var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;  
+//						if (!pattern.test(emailBox.value)) {
+//							mui.toast("邮箱格式错误!");
+//							return;
+//						}
+						
+						var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+						 if (!reg.test(phone.value)) {
+							mui.toast("手机格式错误!");
+							return;
+						 }
+						
+						if(msg_code==""){
+							mui.alert("请先发送验证码！");
+							return;
+						}else if(msg_code!=code.value){
+							console.log(msg_code+"_"+code.value);
+							mui.alert("验证码错误！");
+							return;
+						}
+						console.log("进行注册：name:" + accountBox.value + ",pw:" + passwordBox.value);
+						var data = {
+							"loginName": accountBox.value,
+							"password":  md5(accountBox.value+passwordBox.value+"egh"),
+//							"email": emailBox.value,
+							"phone": phone.value
+//							"firstTaste": tasteName.value,
+//							"firstTasteId": tasteId.value,
+//							"grade": grade.value,
+//							"school": school.value,
+						}
+						var url = "http://112.74.132.108:8080/EGH/studentController.do?doStudentRegister"
+						ajax(url, data, success);
+					}
+					
+					/**
+					 * 短信验证平台
+					 */
+					sendMSG.addEventListener('tap', function() {
+						sendMSG.disabled=true;
+						
+						canSend=false;
+						
+						p_timer=setInterval("reset_btn()",1000);
+						
+						msg_code=generateMixed(5)+"";
+						
+						console.log(msg_code);
+						
+//						return;
+						
+						var data = {
+							"account": "cf_772312664",
+							"password": "81044933",
+							"mobile":phone.value,
+							"content": "您的验证码是：【"+msg_code+"】。请不要把验证码泄露给其他人。"
+						}
+						var url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
+						ajax(url, data, sendMsg_respone);
+					})
+					
+					
+					regButton.addEventListener('tap', function(event) {
+						var regInfo = {
+							account: accountBox.value,
+							password: passwordBox.value
+//							email: emailBox.value
+						};
+						var passwordConfirm = passwordConfirmBox.value;
+						if (passwordConfirm != regInfo.password) {
+							plus.nativeUI.toast('密码两次输入不一致');
+							return;
+						}
+						//进行注册
+						doRegister();
+					});
+//					var cityPicker = new $.PopPicker({
+//						layer: 2
+//					});
+//					cityPicker.setData(tasteData);
+//					var showtaste = doc.getElementById('taste');
+//					showtaste.addEventListener('tap', function(event) {
+//						cityPicker.show(function(items) {
+//							showtaste.value = items[0].text + "—" + items[1].text;
+//							tasteName.val = items[1].text;
+//							tasteId.val = items[1].value;
+//							//返回 false 可以阻止选择框的关闭
+//							//return false;
+//						});
+//					}, false);
+				});
+			}(mui, document));
+			
+			function reset_btn(){
+						console.log(numbers);
+						if(numbers==0){
+							window.clearInterval(p_timer);
+							canSend=true;
+							sendMSG.removeAttribute("disabled");
+							sendMSG.innerHTML="发送验证码";
+						}else{
+							sendMSG.innerHTML="重新发送("+numbers+")";
+							numbers--;
+						}
+					}
+			
+			var chars = ['0','1','2','3','4','5','6','7','8','9'];
+
+			function generateMixed(n) {
+			     var res = "";
+			     for(var i = 0; i < n ; i ++) {
+			         var id = Math.ceil(Math.random()*9);
+			         res += chars[id];
+			     }
+			     return res;
+			}
+			
+			function regSuccess(){
+						plus.nativeUI.toast("注册成功!");
+						plus.webview.currentWebview().close();
+					}
+			function regFail(msg){
+				mui.toast(msg);
+			}
+		</script>
+	</body>
+
+</html>

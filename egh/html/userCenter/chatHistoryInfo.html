@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/common.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-icon-star {
+				color: #B5B5B5;
+				font-size: 30px;
+			}
+			
+			.mui-icon-star-filled {
+				color: #FFB400;
+				font-size: 30px;
+			}
+			
+			ul {
+				padding: 10px 0px;
+			}
+			
+			li {
+				display: -webkit-box;
+				width: 100%;
+				padding: 0 10px;
+			}
+			
+			li a {
+				-webkit-box-flex: 1;
+				display: block;
+				font-size: 15px;
+				line-height: 30px;
+				color: #000;
+			}
+			
+			li div {
+				-webkit-box-flex: 2;
+				text-align: right;
+			}
+			
+			#info {
+				padding: 20px 10px;
+			}
+			
+			.title {
+				margin: 15px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 350px
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="main-bar mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<h1 class="main-font mui-title">聊天记录</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding: 10px 10px;">
+				<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted" style="background-color: ;">
+					<a id="infoTab" class="mui-control-item mui-active" href="#item1">
+				聊天信息
+			</a>
+					<a id="teacherTab" class="mui-control-item" href="#item2">
+				教师评价
+			</a>
+					<a id="studentTab" class="mui-control-item" href="#item3">
+				我的评价
+			</a>
+				</div>
+			</div>
+			<div>
+				<div id="item1" class="mui-control-content mui-active">
+					<div class="title">
+						记录信息
+					</div>
+					<ul class="mui-table-view mui-card">
+						<li class="star-li">
+							<a>教师：</a>
+							<div id="teacherName" class="icons">
+
+							</div>
+						</li>
+						<li class="star-li">
+							<a>交谈话题：</a>
+							<div id="tasteName" class="icons">
+							</div>
+						</li>
+						<li class="star-li">
+							<a>开始时间</a>
+							<div id="time" class="icons">
+							</div>
+						</li>
+					</ul>
+					<div class="" style="padding-left: 5%;padding-right: 5%;padding-top: 15%;">
+						<button id="continue" type="button" class="mui-btn mui-btn-primary mui-btn-block">继续聊天</button>
+
+						<button id="collection_btn" style="margin-top: 7%;" type="button" class="mui-btn mui-btn-warning mui-btn-block">收藏教师</button>
+					</div>
+				</div>
+				<div id="item2" class="mui-control-content">
+					<div class="title">
+						教师对我的评价
+					</div>
+					<ul class="mui-table-view mui-card">
+						<li class="star-li">
+							<a>总体评价</a>
+							<div class="icons" id="teacherStart">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>
+						<!--<li class="star-li">
+							<a>回应速度</a>
+							<div class="icons">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>
+						<li class="star-li">
+							<a>交谈内容</a>
+							<div class="icons">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>-->
+					</ul>
+					<div>
+						<form class="mui-input-group mui-card">
+							<div class="mui-input-row">
+								<label>留言</label>
+							</div>
+							<div class="mui-input-row" style="height:200px;">
+								<textarea id="teacherAccess" style="height: 200px;"></textarea>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<div class="title">
+						我对老师的评价
+					</div>
+					<ul class="mui-table-view mui-card">
+						<li class="star-li">
+							<a>总体评价</a>
+							<div id="myscore1" class="icons">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>
+						<!--<li class="star-li">
+							<a>回应速度</a>
+							<div id="myscore2" class="icons">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>
+						<li class="star-li">
+							<a>交谈内容</a>
+							<div id="myscore3" class="icons">
+								<i data-index="1" class="mui-icon mui-icon-star"></i>
+								<i data-index="2" class="mui-icon mui-icon-star"></i>
+								<i data-index="3" class="mui-icon mui-icon-star"></i>
+								<i data-index="4" class="mui-icon mui-icon-star"></i>
+								<i data-index="5" class="mui-icon mui-icon-star"></i>
+							</div>
+						</li>-->
+					</ul>
+					<div>
+						<!--<form class="mui-input-group mui-card">
+							<div class="mui-input-row">
+								<label>留言</label>
+							</div>
+							<div class="mui-input-row" style="height:200px;">
+								<textarea id="myAccess" style="height: 200px;"></textarea>
+							</div>
+						</form>-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/myajax.js"></script>
+		<script src="../../js/plugin.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			var studentName;
+			var chatInfo;
+//		      mui('.icons').on('click','i',function(){
+//		      	var index = parseInt(this.getAttribute("data-index"));//获取当前元素的索引值
+//		      	var parent = this.parentNode;//获取当前元素的父节点
+//		      	var children = parent.children;//获取父节点下所有子元素
+//		      	if(this.classList.contains("mui-icon-star")){//判断当前节点列表中是否含有.mui-icon-star元素
+//		      		for(var i=0;i<index;i++){//亮星
+//		      				children[i].classList.remove('mui-icon-star');
+//		      				children[i].classList.add('mui-icon-star-filled');
+//		      		}
+//		      	}else{//重置已经亮星的元素
+//		      		for (var i = index; i < 5; i++) {
+//		      			children[i].classList.add('mui-icon-star')
+//		      			children[i].classList.remove('mui-icon-star-filled')
+//		      		}
+//		      	}
+//		      	document.getElementById("info").innerHTML = parent.previousElementSibling.innerText + "："+index+"星好评";
+//		      })
+
+				function setMyStart(index,id){
+					console.log(index);
+					var parent = document.getElementById(id);
+					var children = parent.children;//获取父节点下所有子元素
+					
+					var html="";
+					//重置星星
+					for(var i=1;i<6;i++){
+						html+='<i data-index="'+i+'" class="mui-icon mui-icon-star"></i>'
+					}
+				
+					parent.innerHTML=html;
+					
+					for(var i=0;i<index;i++){//亮星
+		      				children[i].classList.remove('mui-icon-star');
+		      				children[i].classList.add('mui-icon-star-filled');
+		      		}
+					
+				}
+				
+				function getHistoryInfo(id){
+					console.log(id);
+					
+					var data={
+						"id":id
+					}
+					
+					ajax("chatHistoryController.do?getChatHistoryById",data,getHistoryInfo_respone);
+				}
+				
+				var teacherName=document.getElementById("teacherName");
+				var tasteName=document.getElementById("tasteName");
+				var time=document.getElementById("time");
+				var myAccess=document.getElementById("myAccess");
+				var teacherAccess=document.getElementById("teacherAccess");
+				
+				var getHistoryInfo_respone=function(response){
+						
+						var req= JSON.parse(response);
+						console.log("回应信息："+JSON.parse(response));				
+						if(req.msg==''||req.msg==null){
+							console.log('没有返回结果！');
+							mui.toast('网络连接失败，请检查网络！');
+						}else{
+							console.log("回应信息："+req.msg);
+							console.log("回应信息："+response);
+							if(req.success){
+								chatInfo=req.obj;
+								teacherName.innerHTML=req.obj.teacherName;
+								tasteName.innerHTML=req.obj.tasteName;
+								time.innerHTML=new Date(req.obj.startTime).format("yyyy-MM-dd hh:mm:ss");
+								teacherAccess.innerHTML=req.obj.studentAssess;
+								setMyStart(req.obj.teacherScore,"myscore1");
+								setMyStart(req.obj.teacherScore,"teacherStart");
+								checkCollection();
+							}else
+								mui.toast('获取列表失败！');
+							}
+						
+							setTimeout(function(){
+								plus.webview.currentWebview().show("pop-in");
+								plus.nativeUI.closeWaiting();	
+							},50);
+				}
+				
+				document.getElementById("continue").addEventListener("tap",function(){
+				var teacherName =document.getElementById("teacherName").innerHTML;
+				
+				plus.plugintest.PluginTestFunction("chat",teacherName,"","",
+								//调用成功
+								function( result ) {
+		//							mui.toast(result[0]);
+								//调用失败
+								},function(result){
+		//							console.log(result[0]);
+									mui.toast(result[0]);
+								});
+			})
+				
+				Date.prototype.format =function(format){
+					var o = {
+					"M+" : this.getMonth()+1, //month
+					"d+" : this.getDate(), //day
+					"h+" : this.getHours(), //hour
+					"m+" : this.getMinutes(), //minute
+					"s+" : this.getSeconds(), //second
+					"q+" : Math.floor((this.getMonth()+3)/3), //quarter
+					"S" : this.getMilliseconds() //millisecond
+					}
+					if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+					(this.getFullYear()+"").substr(4- RegExp.$1.length));
+					for(var k in o)if(new RegExp("("+ k +")").test(format))
+					format = format.replace(RegExp.$1,
+					RegExp.$1.length==1? o[k] :
+					("00"+ o[k]).substr((""+ o[k]).length));
+					return format;
+				}
+				
+//				mui.plusReady(function(){
+//					var chatid = plus.webview.currentWebview().chatid;
+//					getHistoryInfo(chatid);
+//				})
+				mui.back = function() {
+//					changeTab();
+					plus.webview.currentWebview().hide("pop-out");
+				};
+				
+				function changeTab(tab) {
+					mui.trigger(document.getElementById(tab), 'touchstart');
+					mui.trigger(document.getElementById(tab), 'tap');
+				}
+				
+				function checkCollection() {
+			
+				if (!studentName)
+					studentName = plus.storage.getItem("USER_NAME");
+				var data = {
+					"studentName": studentName,
+					"teacherName": chatInfo.teacherName
+				}
+				ajax("collectionController.do?checkCollection", data, checkCollection_respone);
+			}
+		
+		var checkCollection_respone = function(response) {
+				console.log(response);
+				var req = JSON.parse(response);
+				console.log("回应信息：" + JSON.parse(response));
+				if (req.msg == '' || req.msg == null) {
+					console.log('没有返回结果！');
+					mui.toast('网络连接失败，请检查网络！');
+				} else {
+					console.log("回应信息：" + req.msg);
+					if (req.success) {
+//						alert("!")
+						document.getElementById("collection_btn").innerHTML="取消收藏";
+					} else{
+						document.getElementById("collection_btn").innerHTML="收藏外教";
+					}
+//					mui.toast(req.msg);
+					plus.nativeUI.closeWaiting();
+				}
+			}
+		
+		function doCollection() {
+				if (!studentName)
+					studentName = plus.storage.getItem("USER_NAME");
+			console.log(studentName)
+			console.log(teacherName)
+				var data = {
+					"studentName": studentName,
+					"teacherName": chatInfo.teacherName
+				}
+				ajax("collectionController.do?doCollection", data, doCollection_respone);
+			}
+		
+		var doCollection_respone = function(response) {
+				console.log(response);
+				var req = JSON.parse(response);
+				console.log("回应信息：" + JSON.parse(response));
+				if (req.msg == '' || req.msg == null) {
+					console.log('没有返回结果！');
+					mui.toast('网络连接失败，请检查网络！');
+				} else {
+					console.log("回应信息：" + req.msg);
+					if (req.success) {
+						checkCollection();
+					} else{
+						
+					}
+					mui.toast(req.msg);
+					plus.nativeUI.closeWaiting();
+				}
+			}
+		document.getElementById("collection_btn").addEventListener("click",function(){
+			doCollection();
+		})
+		</script>
+	</body>
+
+</html>

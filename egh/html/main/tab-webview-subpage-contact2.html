@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: white;
+			}
+			.title {
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.result-font {
+				color: #2187E7;
+				font-family: "微软雅黑";
+				font-size: 17px;
+			}
+			
+			.result-font2 {
+				font-family: "微软雅黑";
+				font-size: 17px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" style="background-color: white;">
+			<div style="width: 100%;background-color: white;">
+				<div style="width: 100px;margin: 0 auto;"><img id="search-btn" style="width: 100px;margin: 20px auto;" src="../../images/common/word_search_logo.png" /></div>
+
+				<div class="mui-input-row mui-search" style="margin-left: 5px;margin-right: 5px;">
+					<input id="search_str" style="" type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="点击上方查询">
+				</div>
+			</div>
+			<div class="mui-content" style="background-color:white;width: 100%;text-align: center;">
+				<h2 style="padding-left: 5px;padding-right:5px;color: #666666;font-family: "微软雅黑";" id="search_word"></h2>
+				<h5 id="phonetic" style="padding-top:1% ;"></h5>
+			</div>
+			<div class="title">
+		翻译结果：
+	</div>
+	<div class="mui-card" style="margin-bottom: 15px;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<p class="result-font" id="translation">无</p>
+					</li>
+				</ul>
+			</div>
+	<div class="title">
+		释义：
+	</div>
+		<div class="mui-card" style="margin-bottom: 15px;">
+				<ul class="mui-table-view" id="explains">
+					<li class="mui-table-view-cell">
+						<p class="result-font2" id="translation" >无</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/myajax.js"></script>
+	<script>
+		var wordPage;
+		var word_list;
+		
+		document.getElementById("search-btn").addEventListener("tap",function(){
+			var search_word = document.getElementById("search_str").value;
+			
+			if (search_word == null || search_word == '') {
+				mui.toast("请输入要翻译的内容");
+				return;
+			}
+//			goWordbook();
+			dosearch(search_word);
+		})
+		
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var translation_box=document.getElementById("translation");
+      	var phonetic_box=document.getElementById("phonetic");
+      	var explains_box=document.getElementById("explains");
+      	var search_str=document.getElementById("search_str");
+      	var search_word_box=document.getElementById("search_word");
+      	
+      	function search(){
+      		dosearch(document.getElementById("search_str").value);
+      	}
+      	
+      	function dosearch(word){
+//    		return;
+
+			var search_word=word;
+      		console.log("翻译："+search_word);
+			if(search_word==null||search_word==''){
+				mui.toast("请输入要翻译的内容");
+				return;
+			}
+			search_word_box.innerText=search_word;
+			plus.nativeUI.showWaiting("正在查询");
+			explains_box.innerHTML='<li class="mui-table-view-cell"><p class="result-font2" id="translation">无</p></li>';
+      		phonetic_box.innerHTML="";
+      		mui.ajax('http://fanyi.youdao.com/openapi.do',
+      		{
+      			data:{
+      				"keyfrom":"test0000011",
+      				"key":"986742402",
+      				"type":"data",
+      				"doctype":"json",
+      				"version":"1.1",
+      				"q":search_word
+      			},
+      			dataType:'json',
+      			type:'get',
+      			success:function(data){
+      				//alert(data.translation);
+      				translation_box.innerText=data.translation;
+      				if(data.basic){
+      					var basic=data.basic;
+      					if(basic.phonetic)
+      						phonetic_box.innerHTML="音标:["+basic.phonetic+"]";
+      					if(basic.explains){
+      						var html=""
+      						for(var i=0;i<basic.explains.length;i++){
+      							var values=basic.explains[i];
+      							html+='<li class="mui-table-view-cell"><p class="result-font2">'
+      									+values
+      									+'</p></li>';
+      						}
+      						explains_box.innerHTML=html;
+      					}else{
+      						console.log("没有补充");
+      					}
+      				}else{
+      					console.log("不存在");
+      				}
+      				add_word(search_word,data.translation)
+//    				plus.webview.currentWebview().show("pop-in");
+      				plus.nativeUI.closeWaiting();
+      			},
+      			error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+					alert(type);
+				}
+      		});
+      	}
+      	
+      	function dosearch2(word){
+//    		return;
+
+			var search_word=word;
+      		console.log("翻译："+search_word);
+			if(search_word==null||search_word==''){
+				mui.toast("请输入要翻译的内容");
+				return;
+			}
+			search_word_box.innerText=search_word;
+			plus.nativeUI.showWaiting("正在查询");
+			explains_box.innerHTML='<li class="mui-table-view-cell"><p class="result-font2" id="translation">无</p></li>';
+      		phonetic_box.innerHTML="";
+      		mui.ajax('http://fanyi.youdao.com/openapi.do',
+      		{
+      			data:{
+      				"keyfrom":"test0000011",
+      				"key":"986742402",
+      				"type":"data",
+      				"doctype":"json",
+      				"version":"1.1",
+      				"q":search_word
+      			},
+      			dataType:'json',
+      			type:'get',
+      			success:function(data){
+      				//alert(data.translation);
+      				translation_box.innerText=data.translation;
+      				if(data.basic){
+      					var basic=data.basic;
+      					if(basic.phonetic)
+      						phonetic_box.innerHTML="音标:["+basic.phonetic+"]";
+      					if(basic.explains){
+      						var html=""
+      						for(var i=0;i<basic.explains.length;i++){
+      							var values=basic.explains[i];
+      							html+='<li class="mui-table-view-cell"><p class="result-font2">'
+      									+values
+      									+'</p></li>';
+      						}
+      						explains_box.innerHTML=html;
+      					}else{
+      						console.log("没有补充");
+      					}
+      				}else{
+      					console.log("不存在");
+      				}
+//    				add_word(search_word,data.translation)
+//    				plus.webview.currentWebview().show("pop-in");
+      				plus.nativeUI.closeWaiting();
+      			},
+      			error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+					alert(type);
+				}
+      		});
+      	}
+      	
+      	function add_word(word,values){
+      		word_list.evalJS("addLi('"+word+"')");
+      	}
+      	
+      	function is_save(word){
+      		var flag=false;
+      		
+      		for(var i=0;i<parseInt(plus.storage.getItem("word_index"));i++){
+      			if(plus.storage.getItem("word"+i)==null)
+      				continue;
+      			else if(plus.storage.getItem("word"+i)==word){
+      				flag=true;
+      				return flag;
+      			}
+      		}
+      		return flag;
+      	}
+      	
+      	mui.plusReady(function(){
+      		word_list = plus.webview.create("../wordBook/word_history.html", "word_history");
+      	})
+      	
+//    	mui.back = function() {
+////				log("back");
+//				plus.webview.currentWebview().hide("pop-out");
+//		};
+	</script>
+
+</html>

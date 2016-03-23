@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/myaccess.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<style>
+			.point-font{
+				display: inline-block;
+				font-size: 15px;
+			}
+			.point {
+				height: 10px;
+				width: 8px;
+				background-color: orange;
+				display: inline-block;
+				margin: 0 10px 0 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav main-bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left main-btn"></a>
+			<h1 id="title" class="mui-title main-font">聊天历史</h1>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="title">
+				<h5 style="background-color:#efeff4;color: black!important;"><div class="point red"></div><span class="point-font">点击查看历史详情</span></h5>
+			</div>
+				<ul class="mui-table-view mui-table-view-chevron">
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/myajax.js"></script>
+		<script src="../../js/mylist.js"></script>
+		<script src="../../js/md5.min.js"></script>
+		<script src="../../js/lazeImage.js"></script>
+		<script>
+			var teacherInfo;
+			var userName;
+			var historyInfo;
+		
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					refresh();
+				}, 50);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					is_refresh=false;
+					getData()
+				}, 50);
+			}
+
+			function refresh() {
+				is_refresh=true;
+				mui('#pullrefresh').pullRefresh().refresh(true);
+				pages=1;
+				getData();
+			}
+
+			function getData() {
+				if(!can_load)
+					return;
+				
+				if(!userName)
+					userName = plus.storage.getItem("USER_NAME");
+				
+				var data = {
+					"rows":rows,
+					"pages":pages,
+					"studentName": userName,
+					"studentScore":"true"
+				}
+				
+				ajax("chatHistoryController.do?getChatHistoryList", data, getData_respone);
+			}
+
+			function getData_respone(response) {
+				var req = JSON.parse(response);
+				if (checkRespose(req, response)) {
+					var total = req.total;
+					var page = req.page;
+					log("总页数:"+total+",当前页数:"+page);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((page >= total));
+					pages++;
+					var table = document.body.querySelector('.mui-table-view');
+					//								var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					if(is_refresh)
+						table.innerHTML="";
+						
+					for (var i = 0; i < req.rows.length; i++) {
+						
+						var obj = req.rows[i];
+						
+						var teacherAsses = obj.teacherAsses;
+						if (!teacherAsses || teacherAsses == "")
+							teacherAsses = "暂无评价";
+						
+						var li = document.createElement('li');
+						li.id = obj.id;
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = getHistoryLI(obj.teacherName,obj.tasteName,obj.startTime);
+						table.appendChild(li);
+						//li.innerHTML = '<div class="teacher-content"><div class="teacher-image-div"><img class="teacher-image" src="../../images/student_img.jpg" data-src="http://112.74.132.108:8080/EGH/imageController.do?getImg&fileName=' + obj.chatName + '" onload="lazyload(this)" /></div><div class="teacher-info-div"><span class="teacher-info-span">' + obj.chatName + '</span><br><p class="teacher-info-span-content">' + remark + '</p></div><img class="teacher-btn-image" src="../../image/teacherList/teacher-control.gif"> <img class="teacher-contury" src="../../image/teacherList/teacher-contury.gif"></div>'
+					}
+//					isloaded = true;
+//					if(is_refresh)
+//						mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}
+				if(is_refresh)
+					plus.webview.currentWebview().show("pop-in",300);
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+				},100)
+			}
+			
+			function load(){
+				if(!can_load){
+					can_load=true;
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				}
+			}
+			
+			mui('.mui-table-view').on("click",'li',function(){
+				plus.nativeUI.showWaiting("请稍等");
+				var jsonData= this.getAttribute("id");
+				if(historyInfo){
+					historyInfo.evalJS("changeTab('infoTab')");
+					historyInfo.evalJS("getHistoryInfo('"+jsonData+"')");
+				}else{
+					historyInfo = plus.webview.create("../userCenter/chatHistoryInfo.html","historyInfo",{},{"chatid":jsonData});
+					historyInfo.addEventListener("loaded",function(){
+						historyInfo.evalJS("changeTab('infoTab')");
+						historyInfo.evalJS("getHistoryInfo('"+jsonData+"')");
+					})
+				}
+			})
+			
+			mui.back = function() {
+				log("back");
+				plus.webview.currentWebview().hide("pop-out",300);
+			};
+		</script>
+	</body>
+
+</html>

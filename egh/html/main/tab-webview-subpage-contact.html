@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" style="background-color: white;">
+			<div style="width: 100%;background-color: white;">
+				<div style="width: 100px;margin: 0 auto;"><img id="search-btn" style="width: 100px;margin: 20px auto;" src="../../images/common/word_search_logo.png" /></div>
+
+				<div class="mui-input-row mui-search" style="margin-left: 5px;margin-right: 5px;">
+					<input id="search_str" style="" type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="点击上方查询">
+				</div>
+			</div>
+			
+			<div id="word-list-div" style="height: 300px;overflow-x: auto;">
+				<ul id="word-list" class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">还未查询任何单词</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/myajax.js"></script>
+	<script>
+		var wordPage;
+	
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		
+		mui.plusReady(function(){
+//			alert( "Screen height: " + plus.screen.resolutionHeight*plus.screen.scale + "px" );
+			var height = plus.screen.resolutionHeight*plus.screen.scale;
+			document.getElementById("word-list-div").style.height=height-1475+"px";
+//			alert(document.getElementById("word-list").style.height);
+			init_list();
+		})
+		
+		function init_list() {
+//			plus.storage.removeItem("word_index")
+//			plus.storage.removeItem("word_list")
+			var html = plus.storage.getItem("word_list");
+//			if (plus.storage.getItem("word_index") == null) {
+//				console.log("没有记录");
+//				html = '<li id="" class="myli"><div class="li-font">还没有单词哦～</div></li>';
+//				document.getElementById("word-list").innerHTML = html;
+////				return;
+//			} else {
+//				console.log("!!");
+//				var index = parseInt(plus.storage.getItem("word_index"));
+//				for (var i = index; i >= 0; i--) {
+//					console.log(i);
+//					var word=plus.storage.getItem("word" + i)
+//					if (word)
+//						html += '<span id="'+word+'" onclick=goWordbook("'+word+'") class="li-font">'+word+'</span><br>';
+//				}
+//			}
+			
+			console.log(html);
+			
+			if(html)
+				document.getElementById("word-list").innerHTML = html;
+			
+			console.log("单词列表初始化完成");
+		}
+
+		function dosearch() {
+			var search_word = document.getElementById("search_str").value;
+			if (search_word == null || search_word == '') {
+				mui.toast("请输入要翻译的内容");
+				return;
+			}
+			goWordbook(search_word);
+		}
+
+		function goWordbook(word) {
+			
+			console.log(word);
+			
+			if(wordPage){
+				wordPage.evalJS('dosearch("'+word+'")');
+				setTimeout(function(){
+					wordPage.show("pop-in");
+				},500)
+			}else{
+				wordPage = plus.webview.create("../wordBook/wordbook.html","wordbook");
+				wordPage.addEventListener("loaded",function(){
+					wordPage.evalJS('dosearch("'+word+'")');
+					setTimeout(function(){
+						wordPage.show("pop-in");
+					},500)
+				})
+			}
+		}
+		
+		document.getElementById("search-btn").addEventListener("tap",function(){
+			dosearch();
+		})
+		
+//		mui('.word-list').on('tap', 'span', function(e) {
+//			console.log("!")
+//			
+//			var word=this.getAttribute("id");
+//			
+//			goWordbook(word);
+//		})
+
+		function add_word_tolist(word) {
+			console.log("添加单词到列表" + word);
+			var html = "";
+			
+			if(plus.storage.getItem("word_list")){
+				html = '<li class="mui-table-view-cell" word="'+word+'"><a href="#" onclick=goWordbook("'+word+'") class="mui-navigate-right">'+word+'</a></li>' + document.getElementById("word-list").innerHTML;
+			}else{
+				html = '<li class="mui-table-view-cell" word="'+word+'"><a href="#" onclick=goWordbook("'+word+'") class="mui-navigate-right">'+word+'</a></li>';
+			}
+			document.getElementById("word-list").innerHTML = html;
+			
+			plus.storage.setItem("word_list",html);
+		}
+		window.addEventListener("resize", function() {
+			if (document.body.scrollHeight < 500) {
+				document.getElementById("word-list").style.display = "none";
+			} else {
+				document.getElementById("word-list").style.display = "block";
+			}
+		}, false);
+	</script>
+
+</html>

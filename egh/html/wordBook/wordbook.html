@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link href="../../css/common.css" rel="stylesheet" />
+    <style>
+	    .title{
+					margin: 20px 15px 7px;
+					color: #6d6d72;
+					font-size: 15px;
+				}
+		.result-font{
+			color: #2187E7;
+			font-family:"微软雅黑" ;
+			font-size: 17px;
+		}
+		
+		.result-font2{
+			font-family:"微软雅黑" ;
+			font-size: 17px;
+		}
+    </style>
+</head>
+<body>
+	<header class="main-bar mui-bar mui-bar-nav">
+			<!--<button type="button" class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-right" onclick="dosearch()"><span class="mui-icon mui-icon-camera"></span>搜索</button>-->
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<button id='setting' onclick="search()" class=" mui-pull-right mui-btn-link"><span style="color: white;" class="mui-icon mui-icon-search "></span></button>
+			<div style="width: 200px;height: 30px;MARGIN-RIGHT: auto; MARGIN-LEFT: auto;margin-top: 2px;">
+				<input style="color: white;" id="search_str" type="search"  class="" placeholder="请输入查询内容">
+			</div>
+		</header>
+	<div class="mui-content" style="padding-top: 18%;width: 100%;text-align: center;">
+		<h2 style="padding-left: 5px;padding-right:5px;" id="search_word">输入内容后点击搜索</h2>
+		<h5 id="phonetic" style="padding-top:1% ;"></h5>
+	</div>
+	<div class="title">
+		翻译结果：
+	</div>
+	<div class="mui-card" style="margin-bottom: 35px;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<p class="result-font" id="translation">无</p>
+					</li>
+				</ul>
+			</div>
+	<div class="title">
+		释义：
+	</div>
+		<div class="mui-card" style="margin-bottom: 35px;">
+				<ul class="mui-table-view" id="explains">
+					<li class="mui-table-view-cell">
+						<p class="result-font2" id="translation" >无</p>
+					</li>
+				</ul>
+			</div>
+</body>
+</html>
+<script src="../../js/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	
+      	mui.plusReady(function(){
+      		console.log("加载单词页");
+      	})
+      	
+      	var translation_box=document.getElementById("translation");
+      	var phonetic_box=document.getElementById("phonetic");
+      	var explains_box=document.getElementById("explains");
+      	var search_str=document.getElementById("search_str");
+      	var search_word_box=document.getElementById("search_word");
+      	
+      	function search(){
+      		dosearch(document.getElementById("search_str").value);
+      	}
+      	
+      	function dosearch(word){
+//    		return;
+
+			var search_word=word;
+      		console.log("翻译："+search_word);
+			if(search_word==null||search_word==''){
+				mui.toast("请输入要翻译的内容");
+				return;
+			}
+			search_word_box.innerText=search_word;
+			plus.nativeUI.showWaiting("正在查询");
+			explains_box.innerHTML='<li class="mui-table-view-cell"><p class="result-font2" id="translation">无</p></li>';
+      		phonetic_box.innerHTML="";
+      		mui.ajax('http://fanyi.youdao.com/openapi.do',
+      		{
+      			data:{
+      				"keyfrom":"test0000011",
+      				"key":"986742402",
+      				"type":"data",
+      				"doctype":"json",
+      				"version":"1.1",
+      				"q":search_word
+      			},
+      			dataType:'json',
+      			type:'get',
+      			success:function(data){
+      				//alert(data.translation);
+      				translation_box.innerText=data.translation;
+      				if(data.basic){
+      					var basic=data.basic;
+      					if(basic.phonetic)
+      						phonetic_box.innerHTML="音标:["+basic.phonetic+"]";
+      					if(basic.explains){
+      						var html=""
+      						for(var i=0;i<basic.explains.length;i++){
+      							var values=basic.explains[i];
+      							html+='<li class="mui-table-view-cell"><p class="result-font2">'
+      									+values
+      									+'</p></li>';
+      						}
+      						explains_box.innerHTML=html;
+      					}else{
+      						console.log("没有补充");
+      					}
+      				}else{
+      					console.log("不存在");
+      				}
+      				add_word(search_word,data.translation)
+//    				plus.webview.currentWebview().show("pop-in");
+      				plus.nativeUI.closeWaiting();
+      			},
+      			error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+					alert(type);
+				}
+      		});
+      	}
+      	
+      	function add_word(word,values){
+      		if(is_save(word)){
+      			console.log("单词已在记录中，不存储");
+      			return;
+      		}else
+      			console.log("单词不在记录中，进行存储");
+      		
+      		var index=0;
+      		//初始化
+      		if(plus.storage.getItem("word_index")==null){
+      			console.log(plus.storage.getItem("word_index"));
+      			console.log("初始化");
+      			plus.storage.setItem("word_index","0");
+      		}else{
+      			index=parseInt(plus.storage.getItem("word_index"));
+      		}
+      		
+      		plus.storage.setItem("word"+index,word);
+      		plus.storage.setItem("values"+index,values);
+      		plus.storage.setItem("word_index",""+(index+1));
+      		console.log("添加单词成功，当前词量"+plus.storage.getItem("word_index")+"个");
+      		//刷新列表
+      		var listPage = plus.webview.getWebviewById('tab-webview-subpage-contact.html');
+      		listPage.evalJS('add_word_tolist("'+word+'")');
+      	}
+      	
+      	function is_save(word){
+      		var flag=false;
+      		
+      		for(var i=0;i<parseInt(plus.storage.getItem("word_index"));i++){
+      			if(plus.storage.getItem("word"+i)==null)
+      				continue;
+      			else if(plus.storage.getItem("word"+i)==word){
+      				flag=true;
+      				return flag;
+      			}
+      		}
+      		return flag;
+      	}
+      	
+      	mui.back = function() {
+//				log("back");
+				plus.webview.currentWebview().hide("pop-out");
+		};
+</script>
