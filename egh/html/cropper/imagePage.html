@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<script src="js/mui.min.js"></script>
+	<script src="js/md5.min.js"></script>
+	<script src="js/lazeImage.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		mui.plusReady(function() {
+			var guid = plus.webview.currentWebview().guid;
+			console.log(guid);
+			document.getElementById("image-div").innerHTML='<img src="tom.png" data-src="http://88.128.20.212:8080/EGH/teacherController.do?image&fileName=0b3f5225a6cc4eefa2f55dbbeba0cc24" onload="lazyload(this)" />'
+			//    		document.getElementById("img").src="http://88.128.20.212:8080/EGH/teacherController.do?image&fileName="+guid;
+		})
+	</script>
+
+	<body>
+		<div id="image-div"></div>
+	</body>
+
+</html>

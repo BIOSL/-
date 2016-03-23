@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="../../js/myjs.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	mui.plusReady(function(){
+      		var imgstr=plus.webview.currentWebview().imgStr;
+      		//document.getElementById("myimg").src=imgstr;
+      		document.getElementById("mytext").innerHTML=imgstr;
+      		
+      		var data={
+      			"studentId":"408cbd1d08d1460d8092036da99b3c6f",
+      			"imgStr":imgstr
+      		}
+      		
+      		ajax("imageController.do?uploadImg", data, upload_respone);
+      		
+      		document.getElementById("primary").addEventListener("tap",function(){
+      		mui.openWindow({
+						id: "imagePage",
+						url:"imagePage.html",
+						show: {
+							aniShow: 'pop-in'
+						},
+						extras:{
+						        guid:"0b3f5225a6cc4eefa2f55dbbeba0cc24"
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+      	})
+      	})
+      	
+      	var upload_respone = function(response) {
+			var req = JSON.parse(response);
+			if (checkRespose(req, response)) {
+				if (req.success) {
+					mui.toast('上传成功！');
+				} else
+					mui.toast('上传失败！');
+			}
+		}
+      	
+    </script>
+</head>
+<body>
+	<button id="primary" class="mui-btn-primary mui-btn-block" style="margin-top: 20px;">显示图片</button>
+	<textarea id="mytext"></textarea>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.point-font{
+				display: inline-block;
+				font-size: 15px;
+			}
+			.point {
+				height: 10px;
+				width: 8px;
+				background-color: orange;
+				display: inline-block;
+				margin: 0 10px 0 5px;
+			}
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav main-bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+			<!--<a id="icon-menu" class="mui-icon mui-icon mui-icon-star mui-pull-right" style="color: white;"></a>-->
+			<h1 class="main-font mui-title">历史查询</h1>
+	</header>
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="title">
+				<h5 style="background-color:#efeff4;color: black!important;"><div class="point red"></div><span class="point-font">历史单词</span></h5>
+			</div>
+				<ul class="mui-table-view mui-table-view-chevron" id="list">
+					<!--<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 1</a>
+					</li>	-->
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			mui.init();
+			
+			mui.plusReady(function(){
+				var word_list = plus.storage.getItem("word_list");
+				if(word_list!=null){
+					document.getElementById("list").innerHTML = word_list;
+				}
+			})
+			
+			function saveList(){
+				var html = document.getElementById("list").innerHTML;
+				plus.storage.setItem("word_list",html);
+			}
+			
+			function addLi(word){
+				document.getElementById("list").innerHTML = '<li class="mui-table-view-cell"><a href="#" onclick="return false" class="mui-navigate-right">'+word+'</a></li>'
+				+document.getElementById("list").innerHTML;
+				saveList();
+			}
+			
+			mui.back = function() {
+//				log("back");
+				plus.webview.currentWebview().hide("pop-out");
+			};
+			mui(".mui-table-view").on("tap","a",function(){
+//				console.log(this.innerHTML);
+				plus.webview.getWebviewById("tab-webview-subpage-contact2.html").evalJS("dosearch2('"+this.innerHTML+"')");
+				plus.webview.currentWebview().hide("pop-out",300);
+			})
+		</script>
+	</body>
+
+</html>

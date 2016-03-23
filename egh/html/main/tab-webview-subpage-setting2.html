@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #efeff4;
+			}
+			
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			
+			.head {
+				height: 40px;
+			}
+			
+			#head {
+				line-height: 40px;
+			}
+			
+			.head-img {
+				width: 40px;
+				height: 40px;
+			}
+			
+			#head-img1 {
+				position: absolute;
+				bottom: 10px;
+				right: 40px;
+				width: 40px;
+				height: 40px;
+			}
+			
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+			
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>-->
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li href="#" action="user" class="mui-table-view-cell mui-media" onclick="return false">
+							<a id="userInfo"  class="mui-navigate-right" href="#account">
+								<img class="mui-media-object mui-pull-left head-img" id="head-img" src="../../images/common/student_img.jpg">
+								<div class="mui-media-body">
+									读取中
+									<p class="mui-ellipsis">账号:读取中</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a href="#notifications" onclick="return false" class="mui-navigate-right">我的收藏</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="return false" action='myscore'>
+							<a href="#privacy" class="mui-navigate-right">教师对我的评价</a>
+						</li>
+						<li class="mui-table-view-cell" onclick="return false" action='myaccess'>
+							<a  href="#general" class="mui-navigate-right">我对教师的评价</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li onclick="return false" action='myhistory' class="mui-table-view-cell">
+							<a href="#notifications" class="mui-navigate-right">历史记录</a>
+						</li>
+						<li onclick="return false" action='pw' class="mui-table-view-cell">
+							<a href="#general" class="mui-navigate-right">修改个人密码</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a href="#about" class="mui-navigate-right">关于口语屋 <i class="mui-pull-right update">V1.0.0</i></a>
+						</li>
+					</ul>
+					<ul class="mui-table-view">
+						<li action="logout" class="mui-table-view-cell" style="text-align: center;">
+							<a>退出登录</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</style>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/md5.js"></script>
+	<script src="../../js/lazeImage.js"></script>
+	<script>
+		var userPage;
+		var myaccess;
+		var myscore;
+		var myhistory;
+		var pw;
+		
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		//		document.getElementById("about").addEventListener('tap',function () {
+		//			//获得主页面的webview
+		//			var main = plus.webview.currentWebview().parent();
+		//			//触发主页面的gohome事件
+		//			mui.fire(main,'gohome');
+		//		});
+		mui(".mui-table-view").on("click", "li", function() {
+			var action = this.getAttribute("action");
+			if (action == "logout") {
+				logout();
+			}else if(action == "user"){
+				goUserInfo();
+			}else if(action == 'myaccess'){
+				goAccess();
+			}else if(action == 'myscore'){
+				goScore();
+			}else if(action == 'myhistory'){
+				goHistory();
+			}else if(action == 'pw'){
+				goPw();
+			}
+		})
+		
+		function goHistory(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myhistory){
+				plus.nativeUI.showWaiting("请稍等");
+				console.log("!");
+				myhistory.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myhistory = plus.webview.create("../userCenter/myHistory.html","myHistory")
+				myhistory.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myhistory.show("pop-in");
+						myhistory.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		
+		function goAccess(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myaccess){
+				plus.nativeUI.showWaiting("请稍等");
+				myaccess.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myaccess = plus.webview.create("../userCenter/myaccess.html","myaccess")
+				myaccess.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myaccess.show("pop-in");
+						myaccess.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		function goScore(){
+			plus.nativeUI.showWaiting("请稍等");
+			if(myscore){
+				plus.nativeUI.showWaiting("请稍等");
+				myscore.evalJS("refresh()");
+				plus.nativeUI.closeWaiting();
+			}else{
+				myscore = plus.webview.create("../userCenter/myscore.html","myscore")
+				myscore.addEventListener("loaded",function(){
+					setTimeout(function(){
+						myscore.show("pop-in");
+						myscore.evalJS("load()");
+					},150)
+				})
+			}
+		}
+		function goUserInfo(){
+			plus.nativeUI.showWaiting("请稍等");
+			
+			if(userPage){
+				console.log("1");
+				plus.nativeUI.showWaiting("请稍等");
+				userPage.evalJS("initInfo()");
+			}else{
+				console.log("2");
+				userPage = plus.webview.create("../userCenter/setting.html","userInfo")
+				userPage.addEventListener("loaded",function(){
+					setTimeout(function(){
+						userPage.evalJS("initInfo()");
+					},50)
+				})
+			}
+		}
+		function goPw(){
+			plus.nativeUI.showWaiting("请稍等");
+			
+			if(pw){
+				plus.nativeUI.showWaiting("请稍等");
+				pw.show("pop-in");
+			}else{
+				pw = plus.webview.create("../userCenter/change_password.html","pw")
+				pw.addEventListener("loaded",function(){
+					setTimeout(function(){
+						pw.show("pop-in");
+					},50)
+				})
+			}
+			plus.nativeUI.closeWaiting();
+		}
+		
+		function logout() {
+			plus.nativeUI.showWaiting("注销中")
+			plus.storage.removeItem("USER_NAME");
+			plus.storage.removeItem("USER_PW");
+			var login_page = plus.webview.create("../login/login.html", "login");
+			login_page.addEventListener("loaded", function() {
+				login_page.show();
+				plus.nativeUI.closeWaiting();
+			}, false);
+		}
+		
+		function refresh_user_info(name,phone){
+			var html='<img class="mui-media-object mui-pull-left head-img" id="head-img" src="../../images/common/student_img.jpg" data-src="http://112.74.132.108:8080/EGH/imageController.do?getImg&fileName='+name+'" onload="lazyload(this)" /><div id="userInfo" class="mui-media-body">'+name+'<p class="mui-ellipsis">手机:'+phone+'</p></div>';
+			
+			document.getElementById("userInfo").innerHTML=html;
+		}
+	</script>
+
+</html>
